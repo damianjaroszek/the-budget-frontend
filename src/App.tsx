@@ -6,15 +6,12 @@ import {Navbar} from "./components/Navbar";
 import {Sidebar} from "./components/Sidebar";
 
 import './App.css';
-import {Ecommerce} from "./pages/Ecommerce";
-import {Orders} from "./pages/Orders";
-import {Employees} from "./pages/Employees";
-import {Customers} from "./pages/Customers";
-import {Line} from "./components/Charts/Line";
-import {Pie} from "./components/Charts/Pie";
+import {Budget} from "./pages/Budget";
+import {History} from "./pages/History";
+import {Receipt} from "./pages/Receipt";
 
 
-function App() {
+export const App = () => {
     // const foobar: TestInterface = {
     //     x: 123,
     // };
@@ -55,17 +52,14 @@ function App() {
                 <div>
                     <Routes>
                         {/* Dashboard */}
-                        <Route path="/" element={<Ecommerce/>}/>
-                        <Route path="/ecommerce" element={<Ecommerce/>}/>
+                        <Route path="/" element={<Budget/>}/>
+                        <Route path="/budget" element={<Budget/>}/>
 
-                        {/* Pages */}
-                        <Route path="/orders" element={<Orders/>}/>
-                        <Route path="/employees" element={<Employees/>}/>
-                        <Route path="/customers" element={<Customers/>}/>
+                        {/* Data */}
+                        <Route path="/history" element={<History/>}/>
 
-                        {/* Charts */}
-                        <Route path="/line" element={<Line/>}/>
-                        <Route path="/pie" element={<Pie/>}/>
+                        {/* Action */}
+                        <Route path="/receipt" element={<Receipt/>}/>
                     </Routes>
                 </div>
 
@@ -73,5 +67,3 @@ function App() {
         </BrowserRouter>
     );
 }
-
-export default App;

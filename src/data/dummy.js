@@ -1,20 +1,10 @@
 import React from 'react';
-import {
-  AiOutlineAreaChart,
-  AiOutlineBarChart,
-  AiOutlineCalendar,
-  AiOutlineShoppingCart,
-  AiOutlineStock
-} from 'react-icons/ai';
-import {FiBarChart, FiCreditCard, FiEdit, FiPieChart, FiShoppingBag, FiShoppingCart, FiStar} from 'react-icons/fi';
-import {BsBarChart, BsBoxSeam, BsChatLeft, BsCurrencyDollar, BsKanban, BsShield} from 'react-icons/bs';
-import {BiColorFill} from 'react-icons/bi';
-import {IoMdContacts} from 'react-icons/io';
-import {RiContactsLine, RiStockLine} from 'react-icons/ri';
+import {AiOutlineShoppingCart} from 'react-icons/ai';
+import {FiBarChart, FiCreditCard, FiShoppingCart, FiStar} from 'react-icons/fi';
+import {BsBoxSeam, BsChatLeft, BsCurrencyDollar, BsShield} from 'react-icons/bs';
 import {MdOutlineSupervisorAccount} from 'react-icons/md';
 import {HiOutlineRefresh} from 'react-icons/hi';
 import {TiTick} from 'react-icons/ti';
-import {GiLouvrePyramid} from 'react-icons/gi';
 import {GrLocation} from 'react-icons/gr';
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
@@ -27,6 +17,7 @@ import product4 from './product4.jpg';
 import product5 from './product5.jpg';
 import product6 from './product6.jpg';
 import product7 from './product7.jpg';
+import {TbReceipt2, TbZoomMoney} from "react-icons/tb";
 
 export const gridOrderImage = (props) => (
     <div>
@@ -533,88 +524,88 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'ecommerce',
-        icon: <FiShoppingBag/>,
+        name: 'my budget',
+        icon: <TbZoomMoney/>,
       },
     ],
   },
 
   {
-    title: 'Pages',
+    title: 'Data',
     links: [
       {
-        name: 'orders',
+        name: 'spending history',
         icon: <AiOutlineShoppingCart/>,
       },
-      {
-        name: 'employees',
-        icon: <IoMdContacts/>,
-      },
-      {
-        name: 'customers',
-        icon: <RiContactsLine/>,
-      },
+      // {
+      //   name: 'employees',
+      //   icon: <IoMdContacts/>,
+      // },
+      // {
+      //   name: 'customers',
+      //   icon: <RiContactsLine/>,
+      // },
     ],
   },
   {
-    title: 'Apps',
+    title: 'Action',
     links: [
       {
-        name: 'calendar',
-        icon: <AiOutlineCalendar/>,
+        name: 'add receipt',
+        icon: <TbReceipt2/>,
       },
-      {
-        name: 'kanban',
-        icon: <BsKanban/>,
-      },
-      {
-        name: 'editor',
-        icon: <FiEdit/>,
-      },
-      {
-        name: 'color-picker',
-        icon: <BiColorFill/>,
-      },
+      // {
+      //   name: 'kanban',
+      //   icon: <BsKanban/>,
+      // },
+      // {
+      //   name: 'editor',
+      //   icon: <FiEdit/>,
+      // },
+      // {
+      //   name: 'color-picker',
+      //   icon: <BiColorFill/>,
+      // },
     ],
   },
-  {
-    title: 'Charts',
-    links: [
-      {
-        name: 'line',
-        icon: <AiOutlineStock/>,
-      },
-      {
-        name: 'area',
-        icon: <AiOutlineAreaChart/>,
-      },
-
-      {
-        name: 'bar',
-        icon: <AiOutlineBarChart/>,
-      },
-      {
-        name: 'pie',
-        icon: <FiPieChart/>,
-      },
-      {
-        name: 'financial',
-        icon: <RiStockLine/>,
-      },
-      {
-        name: 'color-mapping',
-        icon: <BsBarChart/>,
-      },
-      {
-        name: 'pyramid',
-        icon: <GiLouvrePyramid/>,
-      },
-      {
-        name: 'stacked',
-        icon: <AiOutlineBarChart/>,
-      },
-    ],
-  },
+  // {
+  //   title: 'Charts',
+  //   links: [
+  //     {
+  //       name: 'line',
+  //       icon: <AiOutlineStock/>,
+  //     },
+  //     {
+  //       name: 'area',
+  //       icon: <AiOutlineAreaChart/>,
+  //     },
+  //
+  //     {
+  //       name: 'bar',
+  //       icon: <AiOutlineBarChart/>,
+  //     },
+  //     {
+  //       name: 'pie',
+  //       icon: <FiPieChart/>,
+  //     },
+  //     {
+  //       name: 'financial',
+  //       icon: <RiStockLine/>,
+  //     },
+  //     {
+  //       name: 'color-mapping',
+  //       icon: <BsBarChart/>,
+  //     },
+  //     {
+  //       name: 'pyramid',
+  //       icon: <GiLouvrePyramid/>,
+  //     },
+  //     {
+  //       name: 'stacked',
+  //       icon: <AiOutlineBarChart/>,
+  //     },
+  //   ],
+  // },
 ];
 
 export const cartData = [
