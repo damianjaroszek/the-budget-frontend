@@ -9,15 +9,21 @@ import './App.css';
 import {Budget} from "./pages/Budget";
 import {History} from "./pages/History";
 import {Receipt} from "./pages/Receipt";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./store";
 
 
 export const App = () => {
     // const foobar: TestInterface = {
     //     x: 123,
     // };
-    const activeMenu = true;
+    //const activeMenu = true;
+
+    const dispatch = useDispatch();
+    const {activeMenu} = useSelector((store: RootState) => store.frontendComponentsState)
 
     return (
+
         <BrowserRouter>
             <div className="flex relative dark:bg-main-dark-bg">
                 <div className="fixed right-4 bottom-4" style={{zIndex: '1000'}}>
