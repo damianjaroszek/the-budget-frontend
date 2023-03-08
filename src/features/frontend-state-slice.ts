@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 // prepared necessary configuration for Redux-Toolkit to create global state for application
-// activeMenu - It shows or hides Sidebar component (boolean)
+// activeMenu - It shows or hides Sidebar, Navbar components (boolean)
 // setActiveMenu - It sets state of activeMenu
 
 interface FrontendComponentsStateInterface {

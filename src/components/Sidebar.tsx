@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store";
 import {setActiveMenu} from "../features/frontend-state-slice";
 
+// @todo Add documentation!
 export const Sidebar = () => {
     const dispatch = useDispatch();
     const {activeMenu} = useSelector((store: RootState) => store.frontendComponentsState);
