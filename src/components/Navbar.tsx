@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store";
-import {setActiveMenu} from "../features/frontend-state-slice";
+import {setActiveMenu, setScreenSize} from "../features/frontend-state-slice";
 import {TooltipComponent} from "@syncfusion/ej2-react-popups";
 import {AiOutlineMenu} from 'react-icons/ai';
 import avatar from "../data/avatar.jpg"
@@ -9,11 +9,28 @@ import avatar from "../data/avatar.jpg"
 
 export const Navbar = () => {
     const dispatch = useDispatch();
-    const {activeMenu} = useSelector((store: RootState) => store.frontendComponentsState);
+    const {activeMenu, screenSize} = useSelector((store: RootState) => store.frontendComponentsState);
 
     const handleActiveChange = () => {
         dispatch(setActiveMenu(!activeMenu));
     }
+
+    useEffect(() => {
+        const handleResizeWindow = () => dispatch(setScreenSize(window.innerWidth));
+        window.addEventListener('resize', handleResizeWindow);
+        handleResizeWindow();
+        return () => {
+            window.removeEventListener('resize', handleResizeWindow);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (screenSize)
+            if (screenSize <= 900) {
+                handleActiveChange();
+            }
+
+    }, [screenSize]);
 
     interface NavbarButtonInterface {
         title: string;
@@ -52,38 +69,24 @@ export const Navbar = () => {
             />
 
             <div className="flex">
-                <NavbarButton
-                    title="Cart"
-                    func={() => {
-                    }}
-                    icon=<AiOutlineMenu/>
-                    color="blue"
-                    dotColor="red"
-                />
-                <NavbarButton
-                    title="Menu"
-                    func={handleActiveChange}
-                    icon=<AiOutlineMenu/>
-                    color="blue"
-                    dotColor="red"
-                />
-                <NavbarButton
-                    title="Menu"
-                    func={handleActiveChange}
-                    icon=<AiOutlineMenu/>
-                    color="blue"
-                    dotColor="red"
-                />
+
                 <TooltipComponent
                     content="UserInfo"
                     position="BottomCenter"
                 >
 
+
                     <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
                         <img
                             alt="avatar"
                             className="rounded-full w-8 h-8"
-                            src={avatar}/>
+                            src={avatar}
+                        />
+                        <p>
+                            <span className="text-gray-400 text-14">Hi,</span> {' '}
+                            <span className="text-gray-400 font-bold ml-1 text-14">Damian</span>
+                        </p>
+
                     </div>
 
 
