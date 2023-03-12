@@ -11,10 +11,20 @@ import {setActiveMenu} from "../features/frontend-state-slice";
 // @todo Add documentation!
 export const Sidebar = () => {
     const dispatch = useDispatch();
-    const {activeMenu} = useSelector((store: RootState) => store.frontendComponentsState);
+    const {activeMenu, screenSize} = useSelector((store: RootState) => store.frontendComponentsState);
 
     const handleActiveChange = () => {
         dispatch(setActiveMenu(!activeMenu));
+    }
+
+    const handleCloseSideBar = () => {
+
+        if (screenSize) {
+            if (activeMenu && screenSize <= 900) {
+                setActiveMenu(false);
+                console.log(activeMenu, screenSize)
+            }
+        }
     }
 
     //const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
@@ -27,8 +37,7 @@ export const Sidebar = () => {
             {activeMenu && (
                 <>
                     <div className="flex justify-between items-center">
-                        <Link to="/" onClick={() => {
-                        }}
+                        <Link to="/" onClick={handleCloseSideBar}
                               className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
                             <GiReceiveMoney/> <span>The Budget</span>
                         </Link>
@@ -47,8 +56,7 @@ export const Sidebar = () => {
                                     <NavLink
                                         to={`/${link.name}`}
                                         key={link.name}
-                                        onClick={() => {
-                                        }}
+                                        onClick={handleCloseSideBar}
                                         className={({isActive}) =>
                                             isActive ? activeLink : normalLink
                                         }
