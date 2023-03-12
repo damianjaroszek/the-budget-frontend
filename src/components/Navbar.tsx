@@ -52,9 +52,8 @@ export const Navbar = () => {
                 <span
                     style={{background: dotColor}}
                     className="absolute inline-flex rounded-full h2 w-2 right-2 top-2"
-                >
+                />
                     {icon}
-                </span>
             </button>
         </TooltipComponent>
     )
