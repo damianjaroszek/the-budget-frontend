@@ -40,20 +40,21 @@ export const App = () => {
                     <div className="fixed md: static bg-main-bg dark:bg-main-dark-bg navbar w-full">
                         <Navbar/>{/*added Navbar component*/}
                     </div>
-                </div>
 
-                <div>
-                    <Routes> {/*added Routes for elements of Sidebar*/}
-                        {/* Dashboard */}
-                        <Route path="/" element={<Budget/>}/>
-                        <Route path="/budget" element={<Budget/>}/>
 
-                        {/* Data */}
-                        <Route path="/history" element={<History/>}/>
+                    <div>
+                        <Routes> {/*added Routes for elements of Sidebar*/}
+                            {/* Dashboard */}
+                            <Route path="/" element={<Budget/>}/>
+                            <Route path="/budget" element={<Budget/>}/>
 
-                        {/* Action */}
-                        <Route path="/receipt" element={<Receipt/>}/>
-                    </Routes>
+                            {/* Data */}
+                            <Route path="/history" element={<History/>}/>
+
+                            {/* Action */}
+                            <Route path="/receipt" element={<Receipt/>}/>
+                        </Routes>
+                    </div>
                 </div>
 
             </div>
