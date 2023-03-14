@@ -1,10 +1,6 @@
 import React from 'react';
 import {DiffBar} from "../components/Charts/DiffBar";
 import {Pie} from "../components/Charts/Pie";
-// export const data = [
-//     ["", "Budget", "Expense"],
-//     ["", 11300, 3675],
-// ];
 
 const legendLabelsForDiffBar = ["Budget", "Expense"];
 const compareTwoValuesForDiffBar = [11300, 3675];
