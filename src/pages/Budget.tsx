@@ -6,12 +6,19 @@ import {Pie} from "../components/Charts/Pie";
 //     ["", 11300, 3675],
 // ];
 
-const legendLabels = ["Budget", "Expense"];
+const legendLabelsForDiffBar = ["Budget", "Expense"];
+
+const compareTwoValuesForDiffBar = [11300, 3675];
 
 
-const compareTwoValues = [
-    [11300, 3675],
-];
+// const data = [
+//     ["", "Expense per category in percentage"],
+//     ["Food", 30],
+//     ["Transport", 10],
+//     ["Commute", 14],
+//     ["Watch TV", 11],
+//     ["Sleep", 30], // CSS-style declaration
+// ];
 
 export const Budget = () => {
 
@@ -30,8 +37,8 @@ export const Budget = () => {
                             heightPixels={250}
                             legendPosition="bottom"
                             chartAreaWidthPercentage={100}
-                            legendLabels={legendLabels}
-                            compareTwoValues={compareTwoValues}
+                            legendLabels={legendLabelsForDiffBar}
+                            compareTwoValues={compareTwoValuesForDiffBar}
                         />
                     </div>
 
