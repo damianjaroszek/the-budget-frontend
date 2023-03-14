@@ -524,7 +524,7 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'my budget',
+        name: 'budget',
         icon: <TbZoomMoney/>,
       },
     ],
@@ -534,7 +534,7 @@ export const links = [
     title: 'Data',
     links: [
       {
-        name: 'spending history',
+        name: 'history',
         icon: <AiOutlineShoppingCart/>,
       },
       // {
@@ -551,7 +551,7 @@ export const links = [
     title: 'Action',
     links: [
       {
-        name: 'add receipt',
+        name: 'receipt',
         icon: <TbReceipt2/>,
       },
       // {
