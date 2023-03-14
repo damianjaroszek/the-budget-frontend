@@ -30,6 +30,11 @@ export const DiffBar = ({
     // Correct data = ["", "Budget", "Expense"]; but for better typing and better management I am getting ["Budget", "Expense"];
     // and first empty string is adding by unshift - prepareDataChartEmptyString(legendLabels)
 
+    // example final structure data input to chart:
+    // const data = [
+//     ["", "Budget", "Expense"],
+//     ["", 11300, 3675],
+// ];
 
     return (
         <Chart
