@@ -35,9 +35,9 @@ export const App = () => {
                     </div>
                 )}
                 <div className={
-                    `dark:bg:main-bg bg-main-bg min-h-screen w-full ${activeMenu ? 'md:ml-72' : 'flex-2'}`
+                    `dark:bg-main-bg bg-main-bg min-h-screen w-full ${activeMenu ? 'md:ml-72' : 'flex-2'}`
                 }> {/*if activeMenu is true then set margin left 72 (18 rem) otherwise set width of element to flex 2 */}
-                    <div className="fixed md: static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+                    <div className={`fixed md: static bg-main-bg dark:bg-main-dark-bg navbar w-full`}>
                         <Navbar/>{/*added Navbar component*/}
                     </div>
 

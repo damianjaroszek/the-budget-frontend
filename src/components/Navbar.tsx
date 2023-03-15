@@ -10,6 +10,8 @@ import avatar from "../data/avatar.jpg"
 export const Navbar = () => {
     const dispatch = useDispatch();
     const {activeMenu, screenSize} = useSelector((store: RootState) => store.frontendComponentsState);
+    const showRightMarginOfNavbar = "flex justify-between p-2 md:ml-6 md:mr-6 relative md:pr-72";
+    const hideRightMarginOfNavbar = "flex justify-between p-2 md:ml-6 md:mr-6 relative md:pr-0";
 
     const handleActiveChange = () => {
         dispatch(setActiveMenu(!activeMenu));
@@ -29,7 +31,6 @@ export const Navbar = () => {
             if (screenSize <= 900) {
                 handleActiveChange();
             }
-
     }, [screenSize]);
 
     interface NavbarButtonInterface {
@@ -53,13 +54,14 @@ export const Navbar = () => {
                     style={{background: dotColor}}
                     className="absolute inline-flex rounded-full h2 w-2 right-2 top-2"
                 />
-                    {icon}
+                {icon}
             </button>
         </TooltipComponent>
     )
 
     return (
-        <div className="flex justify-between p-2 md:mx-6 relative">
+
+        <div className={activeMenu ? showRightMarginOfNavbar : hideRightMarginOfNavbar}>
             <NavbarButton
                 title="Menu"
                 func={handleActiveChange}
@@ -92,5 +94,5 @@ export const Navbar = () => {
                 </TooltipComponent>
             </div>
         </div>
-    )
-}
+    );
+};
