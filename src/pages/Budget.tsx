@@ -17,7 +17,9 @@ const dataForPie: [string, number][] = [
 ];
 
 export const Budget = () => {
-
+    // const foobar: TestInterface = {     TESTOWANIE TYPÓW BE --> FE
+    //     x: 123,
+    // }
     return (
         <div className="mt-24">
             <div className="flex flex-wrap justify-center">

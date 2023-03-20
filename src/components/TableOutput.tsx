@@ -7,43 +7,23 @@ import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
+import {RecipeEntity} from 'types';
 
 interface Column {
-    id: 'product' | 'price' | 'place';
+    id: 'name' | 'price' | 'shopName' | 'date' | 'categoryName';
     label: string;
     minWidth?: number;
     align?: 'right';
     format?: (value: number) => string;
 }
 
-interface Data {
-    product: string;
-    price: string;
-    place: string;
-
+interface Props {
+    rows: RecipeEntity[];
+    columns: Column[];
 }
 
-function createData(
-    product: string,
-    price: string,
-    place: string,
-): Data {
-    return {product, price, place};
-}
 
-const columns: readonly Column[] = [
-    {id: 'product', label: 'Product', minWidth: 100},
-    {id: 'price', label: 'Price [PLN]', minWidth: 10},
-    {id: 'place', label: 'Place', minWidth: 10},
-];
-
-const rows = [
-    createData('Bułka poranna 95g', (0.90).toFixed(2), "Biedronka"),
-    createData('Lunchbox 225g', (9.41).toFixed(2), "Biedronka"),
-];
-
-
-export const TableOutput = () => {
+export const TableOutput = ({rows, columns}: Props) => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -57,17 +37,17 @@ export const TableOutput = () => {
         setPage(0);
     };
 
-    return (
-        <Paper sx={{width: '100%', overflow: 'hidden'}}>
-            <TableContainer sx={{maxHeight: 600}}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{minWidth: column.minWidth}}
+    return (<>
+            <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                <TableContainer sx={{maxHeight: 600}}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{minWidth: column.minWidth}}
                                 >
                                     {column.label}
                                 </TableCell>
@@ -77,13 +57,13 @@ export const TableOutput = () => {
                     <TableBody>
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
+                            .map((row, index) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.price}>
-                                        {columns.map((column) => {
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                                        {columns.map((column, index) => {
                                             const value = row[column.id];
                                             return (
-                                                <TableCell key={column.id} align={column.align}>
+                                                <TableCell key={index} align={column.align}>
                                                     {column.format && typeof value === 'number'
                                                         ? column.format(value)
                                                         : value}
@@ -106,5 +86,6 @@ export const TableOutput = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
+        </>
     );
 };
