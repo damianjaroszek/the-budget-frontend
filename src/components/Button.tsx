@@ -6,12 +6,13 @@ interface Props {
     text: string;
     borderRadius: string;
     size?: string;
+    type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const Button = ({color, bgColor, text, borderRadius, size}: Props) => {
+export const Button = ({color, bgColor, text, borderRadius, size, type}: Props) => {
     return (
         <button
-            type="button"
+            type={type}
             style={{
                 backgroundColor: bgColor,
                 color,

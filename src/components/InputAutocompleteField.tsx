@@ -1,39 +1,19 @@
 import * as React from 'react';
 import {Autocomplete, Stack, TextField} from "@mui/material";
 
-// interface FilmOptionType {
-//     name: string;
-//     year: number;
-// }
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-    {name: 'Lunchbox', weight: 255, symbol: 'g', category: 'Jedzenie'},
-    {name: 'Bułka poranna', weight: 60, symbol: 'g', category: 'Jedzenie'},
-    // { title: 'The Godfather: Part II', year: 1974 },
-
-];
-
-interface Product {
-    name: string;
-    weight: number;
-    symbol: string;
-    category: string;
-}
-
 interface Props {
     fieldName: string;
     width: number;
+    data: any;
 }
 
-export const InputAutocompleteField = ({fieldName, width}: Props) => {
-
+export const InputAutocompleteField = ({fieldName, width, data}: Props) => {
 
     const defaultProps = {
-        options: top100Films,
-        getOptionLabel: (option: Product) => option.name,
+        options: data,
+        getOptionLabel: (option: any) => option.name,
     };
-    const [value, setValue] = React.useState<Product | null>(null);
+    const [value, setValue] = React.useState<any | null>(null);
 
 
     return (
@@ -48,7 +28,7 @@ export const InputAutocompleteField = ({fieldName, width}: Props) => {
                         {...defaultProps}
                         id="controlled-demo"
                         value={value}
-                        onChange={(event: any, newValue: Product | null) => {
+                        onChange={(event: any, newValue: any | null) => {
                             setValue(newValue);
                         }}
                         renderInput={(params) => (
