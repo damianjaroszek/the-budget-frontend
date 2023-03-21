@@ -5,7 +5,7 @@ import {DatePickerInput} from "../components/DatePickerInput";
 import {InputAutocompleteField} from "../components/InputAutocompleteField";
 import {InputField} from "../components/InputField";
 import {TableOutput} from "../components/TableOutput";
-import {ProductEntity, RecipeEntity} from 'types';
+import {ProductEntity, RecipeEntity, ShopEntity} from 'types';
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 
@@ -46,7 +46,8 @@ const places: Place[] = [
 export const Receipt = () => {
 
     const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
-    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null)
+    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
+    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
 
 
     useEffect(() => {
@@ -69,6 +70,17 @@ export const Receipt = () => {
         };
 
         getProductsFromDb();
+    }, []);
+
+    useEffect(() => {
+        setShopsFromDb(null);
+
+        const getShopsFromDb = async () => {
+            const shops = await fetchData(constHostAddress, '/shop/listAll');
+            setShopsFromDb(shops);
+        };
+
+        getShopsFromDb();
     }, []);
 
 
@@ -118,7 +130,7 @@ export const Receipt = () => {
 
 
                                 <div className="pr-3 pb-3">
-                                    <InputAutocompleteField fieldName="Shop" width={300} data={places}/>
+                                    <InputAutocompleteField fieldName="Shop" width={300} data={shopsFromDb}/>
                                 </div>
 
 
