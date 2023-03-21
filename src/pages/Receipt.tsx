@@ -6,6 +6,8 @@ import {InputAutocompleteField} from "../components/InputAutocompleteField";
 import {InputField} from "../components/InputField";
 import {TableOutput} from "../components/TableOutput";
 import {RecipeEntity} from 'types';
+import {fetchData} from "../utils/fetch-data";
+import {constHostAddress} from "../utils/global-const";
 
 
 interface Place {
@@ -44,16 +46,18 @@ const places: Place[] = [
 export const Receipt = () => {
 
     const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
+    // const [productsFromDb, setProductsFromDb] = useState()
 
-    const getRecipesFromDb = async () => {
-        setRecipesFromDb(null);
-        const res = await fetch(`http://localhost:3001/api/recipe//listLatestWeek`);
-        const data = await res.json();
-        setRecipesFromDb(data);
-    }
 
     useEffect(() => {
-        getRecipesFromDb();
+        setRecipesFromDb(null);
+
+        const getProductsFromDb = async () => {
+            const products = await fetchData(constHostAddress, '/recipe/listLatestWeek');
+            setRecipesFromDb(products);
+        };
+
+        getProductsFromDb();
     }, []);
 
 
