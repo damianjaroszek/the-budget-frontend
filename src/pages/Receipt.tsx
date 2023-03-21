@@ -5,7 +5,7 @@ import {DatePickerInput} from "../components/DatePickerInput";
 import {InputAutocompleteField} from "../components/InputAutocompleteField";
 import {InputField} from "../components/InputField";
 import {TableOutput} from "../components/TableOutput";
-import {RecipeEntity} from 'types';
+import {ProductEntity, RecipeEntity} from 'types';
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 
@@ -46,15 +46,26 @@ const places: Place[] = [
 export const Receipt = () => {
 
     const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
-    // const [productsFromDb, setProductsFromDb] = useState()
+    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null)
 
 
     useEffect(() => {
         setRecipesFromDb(null);
 
+        const getRecipesFromDb = async () => {
+            const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
+            setRecipesFromDb(recipes);
+        };
+
+        getRecipesFromDb();
+    }, []);
+
+    useEffect(() => {
+        setProductsFromDb(null);
+
         const getProductsFromDb = async () => {
-            const products = await fetchData(constHostAddress, '/recipe/listLatestWeek');
-            setRecipesFromDb(products);
+            const products = await fetchData(constHostAddress, '/product/listAll');
+            setProductsFromDb(products);
         };
 
         getProductsFromDb();
