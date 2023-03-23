@@ -1,14 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+interface Props {
+    updateForm: (key: string, value: string | number | Date | null) => void;
+    propertyNameOfObjToSet: string;
+}
 
-
-export const DatePickerInput = () => {
+export const DatePickerInput = ({updateForm, propertyNameOfObjToSet}: Props) => {
     const [startDate, setStartDate] = useState<null | Date>(new Date());
+
+
+    useEffect(() => {
+        updateForm(propertyNameOfObjToSet, startDate);
+    }, [startDate])
+
+
     return (
         <DatePicker selected={startDate}
                     onChange={(date) => setStartDate(date)}
