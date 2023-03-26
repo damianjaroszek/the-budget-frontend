@@ -2,9 +2,9 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {TableOutput} from "../components/TableOutput";
 import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
-import {fetchDataGet} from "../utils/fetch-data-get";
 import {constHostAddress} from "../utils/global-const";
 import {InputForm} from "../components/InputForm";
+import {fetchData} from "../utils/fetch-data";
 
 export const Receipt = () => {
 
@@ -43,6 +43,19 @@ export const Receipt = () => {
 
     getRecipesFromDb();
 }, [isDataSet]); --> dzięki temu po każdym uderzeniu do bazy z wysyłką danych odświeży nam widok tabelki i dane będą aktualne*/
+
+        const res = await fetchData(constHostAddress, '/recipe', {
+            method: 'POST',
+            body: JSON.stringify(
+                newRecipeFromForm
+            ),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        await res.json();
+
     }
 
 
@@ -56,7 +69,7 @@ export const Receipt = () => {
         setRecipesFromDb(null);
 
         const getRecipesFromDb = async () => {
-            const recipes = await fetchDataGet(constHostAddress, '/recipe/listLatestWeek');
+            const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
             setRecipesFromDb(recipes);
         };
 
@@ -67,7 +80,7 @@ export const Receipt = () => {
         setProductsFromDb(null);
 
         const getProductsFromDb = async () => {
-            const products = await fetchDataGet(constHostAddress, '/product/listAll');
+            const products = await fetchData(constHostAddress, '/product/listAll');
             setProductsFromDb(products);
         };
 
@@ -78,7 +91,7 @@ export const Receipt = () => {
         setShopsFromDb(null);
 
         const getShopsFromDb = async () => {
-            const shops = await fetchDataGet(constHostAddress, '/shop/listAll');
+            const shops = await fetchData(constHostAddress, '/shop/listAll');
             setShopsFromDb(shops);
         };
 
