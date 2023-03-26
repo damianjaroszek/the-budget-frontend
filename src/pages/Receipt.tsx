@@ -8,16 +8,19 @@ import {fetchData} from "../utils/fetch-data";
 
 export const Receipt = () => {
 
-    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
-    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
-    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
-
-    const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>({
+    const recipeInitValues = {
         date: null,
         price: 0,
         productId: '',
         shopId: '',
-    });
+    }
+
+    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
+    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
+    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
+    const [isDataSet, setIsDataSet] = useState<boolean>(false);
+    const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>(recipeInitValues);
+
 
     const updateForm = (key: string, value: string | number | Date | null) => {
         setNewRecipeFromForm(newRecipeFromForm => ({
@@ -29,6 +32,7 @@ export const Receipt = () => {
     const saveRecipeToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
         //setLoading(true)
+        setIsDataSet(prevValue => !prevValue);
         console.log('If wish to have an endpoint which can insert data to db...', newRecipeFromForm);
         //@todo dodać powiązany stan - [isDataSet, setIsDataSet] = useState<boolean>(false) i jeżeli będzie wykonana funkcja saveRecipeToDb
         //@todo to setIsDataSet(prevValue=>!prevValue) i dodać isDataSet do tablicy zależności:
@@ -44,6 +48,7 @@ export const Receipt = () => {
     getRecipesFromDb();
 }, [isDataSet]); --> dzięki temu po każdym uderzeniu do bazy z wysyłką danych odświeży nam widok tabelki i dane będą aktualne*/
 
+
         const res = await fetchData(constHostAddress, '/recipe', {
             method: 'POST',
             body: JSON.stringify(
@@ -53,9 +58,8 @@ export const Receipt = () => {
                 'Content-Type': 'application/json',
             },
         });
-
-        await res.json();
-
+        console.log(res);
+        setNewRecipeFromForm(recipeInitValues);
     }
 
 
@@ -74,7 +78,7 @@ export const Receipt = () => {
         };
 
         getRecipesFromDb();
-    }, []);
+    }, [isDataSet]);
 
     useEffect(() => {
         setProductsFromDb(null);
@@ -85,7 +89,7 @@ export const Receipt = () => {
         };
 
         getProductsFromDb();
-    }, []);
+    }, [isDataSet]);
 
     useEffect(() => {
         setShopsFromDb(null);
@@ -96,7 +100,7 @@ export const Receipt = () => {
         };
 
         getShopsFromDb();
-    }, []);
+    }, [isDataSet]);
 
 
     return (
