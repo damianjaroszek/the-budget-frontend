@@ -31,7 +31,7 @@ export const Receipt = () => {
     const removeRecipeFromDb = async (id: string) => {
         const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
         if (recipe[0].affectedRows === 1) {
-            setIsDataSet(prevState => !prevState);
+            setIsDataSet(true);
         }
     }
 
