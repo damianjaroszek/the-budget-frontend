@@ -44,7 +44,7 @@ export const Receipt = () => {
 
     const saveRecipeToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
-        setIsDataSet(prevState => !prevState); // false
+        //setIsDataSet(prevState => !prevState); // false
 
 
         const data = await fetchData(constHostAddress, '/recipe', '', {
@@ -57,7 +57,9 @@ export const Receipt = () => {
             },
         });
 
-        console.log('log from save: ', data.code); // id data.status code 2-- then setIsDataSet trues
+        console.log('log from save: ', data.length === 36); // id data.status code 2-- then setIsDataSet trues
+
+        data.length === 36 && typeof data === 'string' ? setIsDataSet(true) : setIsDataSet(false);
     }
 
 
@@ -77,7 +79,10 @@ export const Receipt = () => {
             console.log(JSON.stringify(recipes) === JSON.stringify(recipesFromDb));
 
         }
-        getRecipesFromDb().catch(console.error);
+        if (isDataSet) {
+            getRecipesFromDb().catch(console.error);
+            setIsDataSet(false);
+        }
 
     }, [isDataSet]); //isDataSet
 
@@ -90,7 +95,8 @@ export const Receipt = () => {
         };
 
         getProductsFromDb().catch(console.error);
-    }, [isDataSet]); //isDataSet
+        setIsDataSet(true);
+    }, []); //isDataSet
 
     useEffect(() => {
         setShopsFromDb(null);
