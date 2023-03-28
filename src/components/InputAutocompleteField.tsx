@@ -16,20 +16,21 @@ export const InputAutocompleteField = ({fieldName, width, data, updateForm, prop
     const defaultProps = {
         options: data,
         getOptionLabel: (option: any) => option.name,
+
     };
     const [value, setValue] = React.useState<any | null>(null);
 
     useEffect(() => {
-        value && console.log('I see changes in value: ' + value.id);
-        value && updateForm(propertyNameOfObjToSet, value.id);
+        {
+            value ? updateForm(propertyNameOfObjToSet, value.id) : <span>Loading data</span>
+        }
+        ;
     }, [value]);
 
 
     return (
-        <>{value && console.log(value.id)}
-
+        <>
             <Stack spacing={1}>
-                {/*<div>{`${value?.name}`}</div>*/}
                 <label>
                     <span className="text-gray-400">{fieldName}: </span>
                     <div className="flex">
@@ -38,13 +39,9 @@ export const InputAutocompleteField = ({fieldName, width, data, updateForm, prop
                             {...defaultProps}
                             id="controlled-demo"
                             value={value}
-
-                            onChange={(event: any, newValue: any | null) => {
+                            onChange={(event: any, newValue: number | string | null) => {
                                 setValue(newValue);
                             }}
-                            // onChange={(e: SyntheticEvent) => {
-                            //     updateForm('Product', (e.target as HTMLInputElement).value)
-                            // }}
                             renderInput={(params) => (
                                 <TextField {...params} required/>
                             )}

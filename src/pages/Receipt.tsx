@@ -5,6 +5,11 @@ import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
 import {constHostAddress} from "../utils/global-const";
 import {InputForm} from "../components/InputForm";
 import {fetchData} from "../utils/fetch-data";
+import {DeleteButtonForTable} from "../components/DeleteButtonForTable";
+
+export interface RecipeEntityWithAction extends RecipeEntity {
+    action: JSX.Element;
+}
 
 export const Receipt = () => {
 
@@ -15,12 +20,20 @@ export const Receipt = () => {
         shopId: '',
     }
 
-    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntity[] | null>(null);
+
+    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
     const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
     const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
     const [isDataSet, setIsDataSet] = useState<boolean>(false);
     const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>(recipeInitValues);
 
+
+    const removeRecipeFromDb = async (id: string) => {
+        const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
+        if (recipe[0].affectedRows === 1) {
+            setIsDataSet(prevState => !prevState);
+        }
+    }
 
     const updateForm = (key: string, value: string | number | Date | null) => {
         setNewRecipeFromForm(newRecipeFromForm => ({
@@ -31,25 +44,10 @@ export const Receipt = () => {
 
     const saveRecipeToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
-        //setLoading(true)
-        setIsDataSet(prevValue => !prevValue);
-        console.log('If wish to have an endpoint which can insert data to db...', newRecipeFromForm);
-        //@todo dodać powiązany stan - [isDataSet, setIsDataSet] = useState<boolean>(false) i jeżeli będzie wykonana funkcja saveRecipeToDb
-        //@todo to setIsDataSet(prevValue=>!prevValue) i dodać isDataSet do tablicy zależności:
-        /*
-        * useEffect(() => {
-    setRecipesFromDb(null);
-
-    const getRecipesFromDb = async () => {
-        const recipes = await fetchDataGet(constHostAddress, '/recipe/listLatestWeek');
-        setRecipesFromDb(recipes);
-    };
-
-    getRecipesFromDb();
-}, [isDataSet]); --> dzięki temu po każdym uderzeniu do bazy z wysyłką danych odświeży nam widok tabelki i dane będą aktualne*/
+        setIsDataSet(prevState => !prevState); // false
 
 
-        const res = await fetchData(constHostAddress, '/recipe', {
+        const data = await fetchData(constHostAddress, '/recipe', '', {
             method: 'POST',
             body: JSON.stringify(
                 newRecipeFromForm
@@ -58,27 +56,30 @@ export const Receipt = () => {
                 'Content-Type': 'application/json',
             },
         });
-        console.log(res);
-        setNewRecipeFromForm(recipeInitValues);
+
+        console.log('log from save: ', data.code); // id data.status code 2-- then setIsDataSet trues
     }
 
-
-//@todo --- a może wrzucić to wszystko w global store i wyodębnić z inputów odrębny komponent form?
-//@todo dodać komunikację z tego poziomu z polem AutocompleteInput dla Products, Places, Price + zatwierdzenie formularza
-//@todo z tego poziomu, ponieważ tu jest rodzic dla wszyskich Inputów i komponentu Table. W momencie zatwierdzenia formularza
-//@todo useEffect(()=>{ma lecieć strzał do backendu z insertem do bazy},[tablica zależności - reaguj newRecipeFromForm a to ma się zaktualizować po kliknięciu w ADD formularza])
-//@todo dodać funkcję fetch-data-post albo przebudować fetch-data-get tak aby oprócz ścieżki jeszcze przyjmował parametr z obiektem {method: 'POST', headers, body)
 
     useEffect(() => {
         setRecipesFromDb(null);
 
         const getRecipesFromDb = async () => {
             const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
-            setRecipesFromDb(recipes);
-        };
 
-        getRecipesFromDb();
-    }, [isDataSet]);
+            recipes.map((obj: RecipeEntityWithAction) => {
+                return obj.action = <DeleteButtonForTable id={obj.id} removeRecipeFromDb={removeRecipeFromDb}/>
+            })
+            setRecipesFromDb(recipes);
+
+            console.log({recipes});
+            console.log(recipesFromDb);
+            console.log(JSON.stringify(recipes) === JSON.stringify(recipesFromDb));
+
+        }
+        getRecipesFromDb().catch(console.error);
+
+    }, [isDataSet]); //isDataSet
 
     useEffect(() => {
         setProductsFromDb(null);
@@ -88,8 +89,8 @@ export const Receipt = () => {
             setProductsFromDb(products);
         };
 
-        getProductsFromDb();
-    }, [isDataSet]);
+        getProductsFromDb().catch(console.error);
+    }, [isDataSet]); //isDataSet
 
     useEffect(() => {
         setShopsFromDb(null);
@@ -99,12 +100,12 @@ export const Receipt = () => {
             setShopsFromDb(shops);
         };
 
-        getShopsFromDb();
+        getShopsFromDb().catch(console.error);
     }, [isDataSet]);
 
 
     return (
-        <>{console.log(newRecipeFromForm)}
+        <>
             <div className="mt-20 md:pr-10 md:pl-10 pr-3 pl-3">
                 <Header category="page" title="Receipt"/>
                 <div className="flex flex-wrap justify-center">
@@ -116,13 +117,10 @@ export const Receipt = () => {
                                                                   {id: 'date', label: 'date', minWidth: 20},
                                                                   {id: 'price', label: 'price [PLN]', minWidth: 10},
                                                                   {id: 'shopName', label: 'shop', minWidth: 10},
-                                                                  {
-                                                                      id: 'categoryName',
-                                                                      label: 'category',
-                                                                      minWidth: 10
-                                                                  },]
+                                                                  {id: 'categoryName', label: 'category', minWidth: 10},
+                                                                  {id: 'action', label: 'action', minWidth: 10},]
                                                           }
-                            /> : 'No data to display'}
+                            /> : <span>Loading...</span>}
 
                         </div>
                     </div>

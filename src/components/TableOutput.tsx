@@ -7,10 +7,11 @@ import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
-import {RecipeEntity} from 'types';
+import {RecipeEntityWithAction} from "../pages/Receipt";
+
 
 interface Column {
-    id: 'name' | 'price' | 'shopName' | 'date' | 'categoryName';
+    id: 'name' | 'price' | 'shopName' | 'date' | 'categoryName' | 'action';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -18,7 +19,7 @@ interface Column {
 }
 
 interface Props {
-    rows: RecipeEntity[];
+    rows: RecipeEntityWithAction[];
     columns: Column[];
 }
 
@@ -48,44 +49,45 @@ export const TableOutput = ({rows, columns}: Props) => {
                                         key={column.id}
                                         align={column.align}
                                         style={{minWidth: column.minWidth}}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, index) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                        {columns.map((column, index) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={index} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    return (
+                                        <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                                            {columns.map((column, index) => {
+                                                const value = row[column.id];
+                                                return (
+                                                    <TableCell key={index} align={column.align}>
+                                                        {column.format && typeof value === 'number'
+                                                            ? column.format(value)
+                                                            : value}
+
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    );
+                                })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Paper>
         </>
     );
 };
