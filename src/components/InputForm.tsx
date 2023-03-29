@@ -46,7 +46,8 @@ export const InputForm = ({productsFromDb, shopsFromDb, updateForm, saveRecipeTo
 
                     <div className="pt-3 self-center">
                         <ButtonComponent color="white" bgColor="blue" text="Add" borderRadius="1px"
-                                         type="submit"/>
+                                         type="submit" paddingRight={3} paddingLeft={3} paddingBottom={3}
+                                         paddingTop={3}/>
                     </div>
                 </div>
             </form>
