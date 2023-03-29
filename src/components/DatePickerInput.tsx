@@ -21,7 +21,7 @@ export const DatePickerInput = ({updateForm, propertyNameOfObjToSet}: Props) => 
         <DatePicker selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     withPortal
-                    dateFormat="dd/MM/yyyy"
+                    dateFormat="dd-MM-yyyy"
         />
     );
 };
