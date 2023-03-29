@@ -1,29 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {TableOutput} from "../components/TableOutput";
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 import {DeleteButtonForTable} from "../components/DeleteButtonForTable";
 import {RecipeEntityWithAction} from "./Receipt";
-import {NewRecipe, ProductEntity, ShopEntity} from 'types';
 import {InputDateForm} from "../components/InputDateForm";
 
 
 export const History = () => {
 
-    const recipeInitValues = {
-        date: null,
-        price: 0,
-        productId: '',
-        shopId: '',
+    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
+    const [isDataSet, setIsDataSet] = useState<boolean>(false);
+
+
+    type DateRange = {
+        firstDate: Date;
+        secondDate: Date;
     }
 
-    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
-    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
-    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
-    const [isDataSet, setIsDataSet] = useState<boolean>(false);
-    const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>(recipeInitValues);
-
+    const [dateRange, setDateRange] = useState<DateRange>({
+        firstDate: new Date,
+        secondDate: new Date,
+    })
 
     const removeRecipeFromDb = async (id: string) => {
         const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
@@ -32,12 +31,23 @@ export const History = () => {
         }
     }
 
+    const getRecipesFromDb = async (e: ChangeEvent) => {
+        e.preventDefault();
+        setRecipesFromDb(null);
+        const recipes = (await fetchData(constHostAddress, `/recipe/getDateRange/${(dateRange.firstDate).toISOString().slice(0, 10)}/${dateRange.secondDate.toISOString().slice(0, 10)}`) as RecipeEntityWithAction[]);
+
+        recipes.map((obj: RecipeEntityWithAction) => {
+            return obj.action = <DeleteButtonForTable id={obj.id} removeRecipeFromDb={removeRecipeFromDb}/>
+        })
+        setRecipesFromDb(recipes);
+    }
+
     useEffect(() => {
 
         setRecipesFromDb(null);
 
         const getRecipesFromDb = async () => {
-            const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
+            const recipes = await fetchData(constHostAddress, `/recipe/getDateRange/${(dateRange.firstDate).toISOString().slice(0, 10)}/${dateRange.secondDate.toISOString().slice(0, 10)}`);
 
             recipes.map((obj: RecipeEntityWithAction) => {
                 return obj.action = <DeleteButtonForTable id={obj.id} removeRecipeFromDb={removeRecipeFromDb}/>
@@ -49,53 +59,46 @@ export const History = () => {
             console.log(JSON.stringify(recipes) === JSON.stringify(recipesFromDb));
 
         }
-        if (isDataSet) {
-            getRecipesFromDb().catch(console.error);
-            setIsDataSet(false);
-        }
 
-    }, [isDataSet]); //isDataSet
+        getRecipesFromDb().catch(console.error);
 
-    useEffect(() => {
-        setProductsFromDb(null);
+    }, [isDataSet]);
 
-        const getProductsFromDb = async () => {
-            const products = await fetchData(constHostAddress, '/product/listAll');
-            setProductsFromDb(products);
-        };
 
-        getProductsFromDb().catch(console.error);
-        setIsDataSet(true);
-    }, []); //isDataSet
-
+    const updateForm = (key: string, value: string | number | Date | null) => {
+        setDateRange(prevDateRange => ({
+            ...prevDateRange,
+            [key]: value,
+        }));
+    };
 
     return (
         <div className="mt-20 md:pr-10 md:pl-10 pr-3 pl-3">
             <Header category={"page"} title={"History"}/>
-            <div className="mb-7">
-                <form>
-                    <label htmlFor="default-search"
-                           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                 stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                        <input type="search" id="default-search"
-                               className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               placeholder="Search Mockups, Logos..." required/>
-                        <button type="submit"
-                                className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search
-                        </button>
-                    </div>
-                </form>
-            </div>
+            {/*<div className="mb-7">*/}
+            {/*    <form>*/}
+            {/*        <label htmlFor="default-search"*/}
+            {/*               className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>*/}
+            {/*        <div className="relative">*/}
+            {/*            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">*/}
+            {/*                <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"*/}
+            {/*                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">*/}
+            {/*                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"*/}
+            {/*                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>*/}
+            {/*                </svg>*/}
+            {/*            </div>*/}
+            {/*            <input type="search" id="default-search"*/}
+            {/*                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"*/}
+            {/*                   placeholder="Search Mockups, Logos..." required/>*/}
+            {/*            <button type="submit"*/}
+            {/*                    className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    </form>*/}
+            {/*</div>*/}
 
             <div className="mt-1 mb-10 ">
-                <InputDateForm/>
+                <InputDateForm dateRange={dateRange} updateForm={updateForm} onClickFunction={getRecipesFromDb}/>
             </div>
             <div className="mt-1 ">
                 {recipesFromDb ? <TableOutput rows={recipesFromDb}
