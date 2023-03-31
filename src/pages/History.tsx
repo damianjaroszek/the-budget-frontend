@@ -16,6 +16,7 @@ export const History = () => {
     }
 
     const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
+    const [isDataSet, setIsDataSet] = useState<boolean>(false);
     const [dateRange, setDateRange] = useState<DateRange>({
         firstDate: new Date(),
         secondDate: new Date(),
@@ -32,6 +33,7 @@ export const History = () => {
 
     const removeRecipeFromDb = async (id: string) => {
         await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
+        setIsDataSet(prevState => !prevState);
     }
 
     const getRecipesFromDbByDateRange = async (dateRange: DateRange) => {
@@ -61,7 +63,7 @@ export const History = () => {
         }
         getRecipesFromDb().catch(console.error);
 
-    }, []);
+    }, [isDataSet]);
 
 
     return (<>
