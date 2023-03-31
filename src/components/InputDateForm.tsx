@@ -7,27 +7,18 @@ type DateRange = {
     secondDate: Date;
 }
 
-// interface Props {
-//     productsFromDb: ProductEntity[];
-//     shopsFromDb: ShopEntity[];
-//     updateForm: (key: string, value: string | number | Date | null) => void;
-//     saveRecipeToDb: (e: SyntheticEvent) => Promise<void>;
-// }
 
 interface Props {
     dateRange: DateRange;
     updateForm: (key: string, value: string | number | Date | null) => void;
-    onClickFunction: any;
+    getRecipesFromDb: any;
 }
 
 export const InputDateForm = (/*{updateForm, saveRecipeToDb}: Props*/ {
     dateRange,
     updateForm,
-    onClickFunction
+    getRecipesFromDb
 }: Props) => {
-
-
-    //@todo domyślnie zapytanie z historią z dzisiaj
 
     return (
         <>{console.log(dateRange)}
@@ -47,7 +38,7 @@ export const InputDateForm = (/*{updateForm, saveRecipeToDb}: Props*/ {
                         <ButtonComponent color={"white"} bgColor={"blue"} text={"Search"} borderRadius={"5px"}
                                          paddingLeft={3} paddingRight={3}
                                          type="submit"
-                                         onClickFunction={onClickFunction}/>
+                                         onClickFunction={getRecipesFromDb}/>
                     </div>
                 </div>
             </form>
