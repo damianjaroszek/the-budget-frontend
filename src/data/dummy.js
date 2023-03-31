@@ -1,7 +1,7 @@
 import React from 'react';
 import {AiOutlineShoppingCart} from 'react-icons/ai';
 import {FiBarChart, FiCreditCard, FiShoppingCart, FiStar} from 'react-icons/fi';
-import {BsBoxSeam, BsChatLeft, BsCurrencyDollar, BsShield} from 'react-icons/bs';
+import {BsBoxSeam, BsChatLeft, BsCurrencyDollar, BsShield, BsShop} from 'react-icons/bs';
 import {MdOutlineSupervisorAccount} from 'react-icons/md';
 import {HiOutlineRefresh} from 'react-icons/hi';
 import {TiTick} from 'react-icons/ti';
@@ -18,6 +18,7 @@ import product5 from './product5.jpg';
 import product6 from './product6.jpg';
 import product7 from './product7.jpg';
 import {TbReceipt2, TbZoomMoney} from "react-icons/tb";
+import {RiProductHuntFill} from "react-icons/ri";
 
 export const gridOrderImage = (props) => (
     <div>
@@ -531,37 +532,29 @@ export const links = [
   },
 
   {
-    title: 'Data',
+    title: 'Show',
     links: [
       {
         name: 'history',
         icon: <AiOutlineShoppingCart/>,
       },
-      // {
-      //   name: 'employees',
-      //   icon: <IoMdContacts/>,
-      // },
-      // {
-      //   name: 'customers',
-      //   icon: <RiContactsLine/>,
-      // },
     ],
   },
   {
-    title: 'Action',
+    title: 'Add',
     links: [
       {
         name: 'receipt',
         icon: <TbReceipt2/>,
       },
-      // {
-      //   name: 'kanban',
-      //   icon: <BsKanban/>,
-      // },
-      // {
-      //   name: 'editor',
-      //   icon: <FiEdit/>,
-      // },
+      {
+        name: 'shop',
+        icon: <BsShop/>,
+      },
+      {
+        name: 'product',
+        icon: <RiProductHuntFill/>,
+      },
       // {
       //   name: 'color-picker',
       //   icon: <BiColorFill/>,
