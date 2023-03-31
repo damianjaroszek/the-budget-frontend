@@ -16,11 +16,10 @@ export const History = () => {
     }
 
     const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
-    const [isDataSet, setIsDataSet] = useState<boolean>(false);
     const [dateRange, setDateRange] = useState<DateRange>({
-        firstDate: new Date,
-        secondDate: new Date,
-    })
+        firstDate: new Date(),
+        secondDate: new Date(),
+    });
 
     const updateForm = (key: string, value: string | number | Date | null) => {
         setDateRange(prevDateRange => ({
@@ -32,10 +31,7 @@ export const History = () => {
     const sumPricesFromRange = () => (recipesFromDb?.reduce((prevValue, currentValue) => Number(prevValue) + Number(currentValue.price), 0).toFixed(2));
 
     const removeRecipeFromDb = async (id: string) => {
-        const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
-        if (recipe[0].affectedRows === 1) {
-            setIsDataSet(true);
-        }
+        await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
     }
 
     const getRecipesFromDbByDateRange = async (dateRange: DateRange) => {
@@ -51,8 +47,8 @@ export const History = () => {
     const getRecipesFromDb = async (e: ChangeEvent) => {
         e.preventDefault();
         setRecipesFromDb(null);
-        const recipes = getRecipesFromDbByDateRange(dateRange);
-        setRecipesFromDb(await recipes);
+        const recipes = await getRecipesFromDbByDateRange(dateRange);
+        setRecipesFromDb(recipes);
     }
 
 
@@ -60,12 +56,12 @@ export const History = () => {
 
         setRecipesFromDb(null);
         const getRecipesFromDb = async () => {
-            const recipes = getRecipesFromDbByDateRange(dateRange);
-            setRecipesFromDb(await recipes);
+            const recipes = await getRecipesFromDbByDateRange(dateRange);
+            setRecipesFromDb(recipes);
         }
         getRecipesFromDb().catch(console.error);
 
-    }, [isDataSet]);
+    }, []);
 
 
     return (<>
@@ -94,7 +90,7 @@ export const History = () => {
                 {/*</div>*/}
 
                 <div className="mt-1 mb-10 ">
-                    <InputDateForm dateRange={dateRange} updateForm={updateForm} getRecipesFromDb={getRecipesFromDb}/>
+                    <InputDateForm updateForm={updateForm} getRecipesFromDb={getRecipesFromDb}/>
                 </div>
                 <div className="mt-1 ">
                     {recipesFromDb ? <TableOutput rows={recipesFromDb}

@@ -2,27 +2,19 @@ import React from 'react';
 import {Button as ButtonComponent} from "./Button";
 import {DatePickerInput} from "./DatePickerInput";
 
-type DateRange = {
-    firstDate: Date;
-    secondDate: Date;
-}
-
-
 interface Props {
-    dateRange: DateRange;
     updateForm: (key: string, value: string | number | Date | null) => void;
     getRecipesFromDb: any;
 }
 
-export const InputDateForm = (/*{updateForm, saveRecipeToDb}: Props*/ {
-    dateRange,
-    updateForm,
-    getRecipesFromDb
-}: Props) => {
+export const InputDateForm = ({
+                                  updateForm,
+                                  getRecipesFromDb
+                              }: Props) => {
 
     return (
-        <>{console.log(dateRange)}
-            <form /*onSubmit={saveRecipeToDb}*/>
+        <>
+            <form>
                 <div className="pb-3">
                     <span className="text-gray-400">Select a date range:</span>
                 </div>
