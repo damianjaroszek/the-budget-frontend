@@ -2,13 +2,14 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Navbar} from "./components/Navbar";
 import {Sidebar} from "./components/Sidebar";
-//import {TestInterface} from 'types';
 import './App.css';
 import {Budget} from "./pages/Budget";
 import {History} from "./pages/History";
 import {Receipt} from "./pages/Receipt";
 import {useSelector} from "react-redux";
 import {RootState} from "./store";
+import {Shop} from "./pages/Shop";
+import {Product} from "./pages/Product";
 
 
 export const App = () => {
@@ -48,11 +49,13 @@ export const App = () => {
                             <Route path="/" element={<Budget/>}/>
                             <Route path="/budget" element={<Budget/>}/>
 
-                            {/* Data */}
+                            {/* Show */}
                             <Route path="/history" element={<History/>}/>
 
-                            {/* Action */}
+                            {/* Add */}
                             <Route path="/receipt" element={<Receipt/>}/>
+                            <Route path="/shop" element={<Shop/>}/>
+                            <Route path="/product" element={<Product/>}/>
                         </Routes>
                     </div>
                 </div>
