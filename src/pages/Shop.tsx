@@ -14,9 +14,9 @@ export const Shop = () => {
 
 
         const shop = await fetchData(constHostAddress, '/shop', id, {method: 'DELETE'}); //@todo zrobić endpoint do usuwania sklepu
-        if (shop[0].affectedRows === 1) {
-            setIsDataSet(true);
-        }
+        //if (shop[0].affectedRows === 1) {
+        setIsDataSet(prevState => !prevState);
+        //}
 
     }
 
