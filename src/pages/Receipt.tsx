@@ -1,11 +1,11 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
-import {TableOutput} from "../components/TableOutput";
+import {OutputTable} from "../components/OutputTable";
 import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
 import {constHostAddress} from "../utils/global-const";
 import {InputForm} from "../components/InputForm";
 import {fetchData} from "../utils/fetch-data";
-import {DeleteButtonForTable} from "../components/DeleteButtonForTable";
+import {DeleteButton} from "../components/DeleteButton";
 
 export interface RecipeEntityWithAction extends RecipeEntity {
     action: JSX.Element;
@@ -57,8 +57,6 @@ export const Receipt = () => {
             },
         });
 
-        console.log('log from save: ', data.length === 36); // id data.status code 2-- then setIsDataSet trues
-
         data.length === 36 && typeof data === 'string' ? setIsDataSet(true) : setIsDataSet(false);
     }
 
@@ -70,14 +68,9 @@ export const Receipt = () => {
             const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
 
             recipes.map((obj: RecipeEntityWithAction) => {
-                return obj.action = <DeleteButtonForTable id={obj.id} removeRecipeFromDb={removeRecipeFromDb}/>
+                return obj.action = <DeleteButton id={obj.id} removeItem={removeRecipeFromDb}/>
             })
             setRecipesFromDb(recipes);
-
-            console.log({recipes});
-            console.log(recipesFromDb);
-            console.log(JSON.stringify(recipes) === JSON.stringify(recipesFromDb));
-
         }
         if (isDataSet) {
             getRecipesFromDb().catch(console.error);
@@ -117,7 +110,7 @@ export const Receipt = () => {
                 <div className="flex flex-wrap justify-center">
                     <div className="w-full bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl pb-6 mb-3">
                         <div className="mt-1 ">
-                            {recipesFromDb ? <TableOutput rows={recipesFromDb}
+                            {recipesFromDb ? <OutputTable rows={recipesFromDb}
                                                           columns={
                                                               [{id: 'name', label: 'name', minWidth: 80},
                                                                   {id: 'date', label: 'date', minWidth: 20},
