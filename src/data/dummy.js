@@ -541,7 +541,7 @@ export const links = [
     ],
   },
   {
-    title: 'Add',
+    title: 'Manage',
     links: [
       {
         name: 'receipt',
