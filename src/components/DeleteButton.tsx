@@ -3,12 +3,13 @@ import {TiDelete} from "react-icons/ti";
 
 interface Props {
     id: string | undefined;
-    removeRecipeFromDb: (id: string) => Promise<void>;
+    removeItem: (id: string) => Promise<void>;
 }
 
-export const DeleteButtonForTable = ({id, removeRecipeFromDb}: Props) => {
+export const DeleteButton = ({id, removeItem}: Props) => {
     const handleRemoveRecipe = async () => {
-        await removeRecipeFromDb(`${id}`);
+        await removeItem(`${id}`);
+        console.log(id);
     }
 
     return <>
