@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
-import {TableOutput} from "../components/TableOutput";
+import {OutputTable} from "../components/OutputTable";
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
-import {DeleteButtonForTable} from "../components/DeleteButtonForTable";
+import {DeleteButton} from "../components/DeleteButton";
 import {RecipeEntityWithAction} from "./Receipt";
 import {InputDateForm} from "../components/InputDateForm";
 
@@ -40,7 +40,7 @@ export const History = () => {
         const recipes = (await fetchData(constHostAddress, `/recipe/getDateRange/${(dateRange.firstDate).toISOString().slice(0, 10)}/${dateRange.secondDate.toISOString().slice(0, 10)}`) as RecipeEntityWithAction[]);
 
         recipes.map((obj: RecipeEntityWithAction) => {
-            return obj.action = <DeleteButtonForTable id={obj.id} removeRecipeFromDb={removeRecipeFromDb}/>
+            return obj.action = <DeleteButton id={obj.id} removeItem={removeRecipeFromDb}/>
         })
         return recipes;
     }
@@ -95,7 +95,7 @@ export const History = () => {
                     <InputDateForm updateForm={updateForm} getRecipesFromDb={getRecipesFromDb}/>
                 </div>
                 <div className="mt-1 ">
-                    {recipesFromDb ? <TableOutput rows={recipesFromDb}
+                    {recipesFromDb ? <OutputTable rows={recipesFromDb}
                                                   columns={
                                                       [{id: 'name', label: 'name', minWidth: 80},
                                                           {id: 'date', label: 'date', minWidth: 20},
