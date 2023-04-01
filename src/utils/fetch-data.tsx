@@ -5,7 +5,17 @@ type Obj = {
 }
 
 export const fetchData = async (hostAddress: string, url: string, id = '', obj?: Obj) => {
-    const res = await fetch(`${hostAddress}${url}/${id}`, obj);
-    const data = await res.json();
-    return data;
+
+    try {
+        const res = await fetch(`${hostAddress}${url}/${id}`, obj);
+        if (!res.ok) {
+            const message = `Something wrong.`;
+            throw new Error(message);
+        }
+        const data = await res.json();
+
+        return data;
+    } catch (error) {
+        return error;
+    }
 }
