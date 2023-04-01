@@ -24,7 +24,7 @@ interface Props {
 }
 
 
-export const TableOutput = ({rows, columns}: Props) => {
+export const OutputTable = ({rows, columns}: Props) => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
