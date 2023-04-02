@@ -1,5 +1,4 @@
 import React, {SyntheticEvent} from 'react';
-import {InputAutocompleteField} from "./InputAutocompleteField";
 import {InputField} from "./InputField";
 import {Button as ButtonComponent} from "./Button";
 
@@ -28,8 +27,8 @@ export const InputFormProduct = ({updateForm, saveShopToDb}: Props) => {
                                     propertyNameOfObjToSet="name" required={true}/>
                     </div>
 
-                    <InputAutocompleteField fieldName="category" width={275} data={data} updateForm={updateForm}
-                                            propertyNameOfObjToSet="categoryId"/>
+                    {/*<InputAutocompleteField fieldName="category" width={275} data={data} updateForm={updateForm}*/}
+                    {/*                        propertyNameOfObjToSet="categoryId"/>*/}
 
 
                     <div className="pt-3 self-center">
