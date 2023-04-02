@@ -7,7 +7,7 @@ interface Props {
     fieldName: string;
     width: number;
     data: any;
-    updateForm: (key: string, value: string | number) => void;
+    updateForm: (key: string, value: string) => void;
     propertyNameOfObjToSet: string;
 }
 
