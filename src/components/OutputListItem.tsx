@@ -8,9 +8,10 @@ interface Props {
     id: string | undefined;
     isDeletable: number;
     removeItem: (id: string) => Promise<void>;
+    additionalInfo?: string;
 }
 
-export const OutputListItem = ({name, id, removeItem, isDeletable}: Props) => {
+export const OutputListItem = ({name, id, removeItem, isDeletable, additionalInfo}: Props) => {
 
     return (<>
             <li className="pb-3 sm:pb-4" key={id}>
@@ -19,6 +20,11 @@ export const OutputListItem = ({name, id, removeItem, isDeletable}: Props) => {
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white pt-5">
                             {name}
+                        </p>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-500 truncate dark:text-white pt-5">
+                            {additionalInfo}
                         </p>
                     </div>
                     <div
