@@ -2,18 +2,18 @@ import React, {ChangeEvent} from 'react';
 import {TextField} from "@mui/material";
 
 type RangeInputNumber = {
-    min: number,
-    step: number,
-    max: number,
+    min?: number,
+    step?: number,
+    max?: number,
 }
 
 interface Props {
     fieldName: string;
-    type: "number" | "string";
+    type: "number" | "text";
     width: number;
-    updateForm: (key: string, value: string | number) => void;
+    updateForm: (key: string, value: string) => void;
     propertyNameOfObjToSet: string;
-    rangeInputNumber: RangeInputNumber;
+    rangeInputNumber?: RangeInputNumber;
     required: boolean;
 }
 
@@ -28,7 +28,7 @@ export const InputField = ({
                            }: Props) => {
 
     const handleUpdateForm = (e: ChangeEvent<HTMLInputElement>) => {
-        updateForm(propertyNameOfObjToSet, Number(e.target.value));
+        updateForm(propertyNameOfObjToSet, e.target.value);
     }
 
     return (
