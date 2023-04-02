@@ -4,7 +4,7 @@ import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 import {OutputList} from "../components/OutputList";
-import {InputFormProduct} from "../components/InputFormProduct";
+import {InputFormShop} from "../components/InputFormShop";
 
 
 export const Shop = () => {
@@ -83,7 +83,7 @@ export const Shop = () => {
 
             <div className="md:pr-10 md:pl-10 pr-3 pl-3">
                 <div className="w-96 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
-                    <InputFormProduct updateForm={updateForm} saveShopToDb={saveShopToDb}/>
+                    <InputFormShop updateForm={updateForm} saveShopToDb={saveShopToDb}/>
                     {nameExist && <p className="text-rose-600">The shop is already exist in database.</p>}
                 </div>
             </div>
