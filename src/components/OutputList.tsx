@@ -24,6 +24,7 @@ export const OutputList = ({data, sortParameter, removeItem}: Props) => {
                             //     onRemoveItem={removeItem}
                             // />
                             <OutputListItem key={dataObj.id} name={dataObj[sortParameter]} id={dataObj.id}
+                                            additionalInfo={dataObj.categoryName}
                                             isDeletable={dataObj.isDeletable} removeItem={removeItem}/>
                         )
                 }

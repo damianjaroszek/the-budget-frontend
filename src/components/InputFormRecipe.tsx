@@ -13,7 +13,7 @@ interface Props {
     saveRecipeToDb: (e: SyntheticEvent) => Promise<void>;
 }
 
-export const InputForm = ({productsFromDb, shopsFromDb, updateForm, saveRecipeToDb}: Props) => {
+export const InputFormRecipe = ({productsFromDb, shopsFromDb, updateForm, saveRecipeToDb}: Props) => {
     return (
         <>
             <form onSubmit={saveRecipeToDb}>
