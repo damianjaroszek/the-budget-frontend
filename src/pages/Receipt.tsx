@@ -3,7 +3,7 @@ import {Header} from "../components/Header";
 import {OutputTable} from "../components/OutputTable";
 import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
 import {constHostAddress} from "../utils/global-const";
-import {InputForm} from "../components/InputForm";
+import {InputFormRecipe} from "../components/InputFormRecipe";
 import {fetchData} from "../utils/fetch-data";
 import {DeleteButton} from "../components/DeleteButton";
 
@@ -18,6 +18,7 @@ export const Receipt = () => {
         price: 0,
         productId: '',
         shopId: '',
+        //categoryName: '',
     }
 
 
@@ -129,8 +130,9 @@ export const Receipt = () => {
 
                         {
                             productsFromDb && shopsFromDb &&
-                            <InputForm productsFromDb={productsFromDb} shopsFromDb={shopsFromDb} updateForm={updateForm}
-                                       saveRecipeToDb={saveRecipeToDb}/>
+                            <InputFormRecipe productsFromDb={productsFromDb} shopsFromDb={shopsFromDb}
+                                             updateForm={updateForm}
+                                             saveRecipeToDb={saveRecipeToDb}/>
                         }
 
                     </div>
