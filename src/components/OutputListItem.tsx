@@ -17,7 +17,7 @@ export const OutputListItem = ({name, id, removeItem, isDeletable, additionalInf
             <li className="pb-3 sm:pb-4" key={id}>
 
                 <div className="flex items-center space-x-4">
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-10">
                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white pt-5">
                             {name}
                         </p>
