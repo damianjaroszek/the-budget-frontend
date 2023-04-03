@@ -13,7 +13,7 @@ export const OutputList = ({data, sortParameter, removeItem}: Props) => {
 
     return (<>
             {/*{console.log({data})}*/}
-            <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+            <ul className="w-full divide-y divide-gray-200 dark:divide-gray-700">
                 {
                     [...data]
                         .sort((a, b) => a[sortParameter].localeCompare(b[sortParameter]))
