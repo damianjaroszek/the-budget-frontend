@@ -1,13 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, SyntheticEvent, useEffect, useState} from 'react';
 import {DiffBar} from "../components/Charts/DiffBar";
 import {Pie} from "../components/Charts/Pie";
 import {Button} from "../components/Button";
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 import {BudgetEntity} from 'types';
+import {getKeyOfObject} from "../utils/get-key-of-object";
 
-const legendLabelsForDiffBar = ["Budget", "Expense"];
-const compareTwoValuesForDiffBar = [11300, 3675];
 
 const legendLabelsForPie = ["Expense per category in percentage"];
 
@@ -24,28 +23,33 @@ const budgetInitialValue = {
     budget: 0,
     expense: 0,
 }
+const currentDate = new Date().toLocaleString('en-us', {month: 'long', year: 'numeric'})
+
 
 export const Budget = () => {
     const [getBudget, setGetBudget] = useState<BudgetEntity>(budgetInitialValue);
     const [isDataSet, setIsDataSet] = useState<boolean>(false);
 
-    // const saveShopToDb = async (e: SyntheticEvent) => {
-    //     e.preventDefault();
-    //         const data = await fetchData(constHostAddress, '/product', '', {
-    //             method: 'POST',
-    //             body: JSON.stringify(
-    //                 newProductFromForm
-    //             ),
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         });
-    //
-    //         setIsDataSet(prevState => !prevState);
-    //
-    //
-    //     setNewProductFromForm(shopInitValues);
-    // }
+    const legendLabelsForDiffBar = getKeyOfObject(getBudget); //["Budget", "Expense"]
+    const compareTwoValuesForDiffBar = [getBudget.budget, getBudget.expense];
+
+    const updateBudgetToDb = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        const data = await fetchData(constHostAddress, '/budget', '', {
+            method: 'PUT',
+            body: JSON.stringify(
+                getBudget
+            ),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        setIsDataSet(prevState => !prevState);
+
+
+        setGetBudget(budgetInitialValue);
+    }
 
     useEffect(() => {
         //setGetBudget(budgetInitialValue);
@@ -59,27 +63,28 @@ export const Budget = () => {
     }, []);//isDataSet
 
 
-    return (<>
+    return (<>{console.log(getKeyOfObject(getBudget))}
             <div className="mt-24">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
-                        <div className="flex justify-between">
+                        <div className="flex flex-wrap justify-between">
                             <p className="text-3xl font-semibold">Budget vs Expense</p>
+                            <p className="text-xl text-gray-400 font-thin">{currentDate}</p>
                         </div>
 
                         <div className="flex justify-between pt-10">
-                            <div className="text-xl font-semibold">Budget [PLN]:
-                                <form className="flex justify-start" onSubmit={() => {
-                                }}>
+                            <div className="text-xl font-semibold" style={{color: '#2952A3'}}>Budget [PLN]:
+                                <form className="flex justify-start" onSubmit={updateBudgetToDb}>
                                     <input
-                                        style={{width: '250px'}}
+                                        style={{width: '250px', color: '#2952A3'}}
                                         className="pl-2 text-4xl"
                                         type={"number"}
                                         min={0}
-                                        maxLength={9}
-                                        size={9}
+                                        maxLength={10}
+                                        size={10}
+                                        max={999999999.99}
                                         value={getBudget.budget.toFixed(2)}
-                                        step={0.1}
+                                        step={0.01}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => setGetBudget(getBudget => ({
                                             ...getBudget,
                                             budget: Number(e.target.value),
@@ -97,9 +102,9 @@ export const Budget = () => {
                         </div>
 
                         <div className="flex justify-between pt-5">
-                            <p className="text-xl font-semibold">Expense [PLN]:
+                            <p className="text-xl font-semibold" style={{color: '#B02E0E'}}>Expense [PLN]:
                                 {getBudget && <input
-                                    style={{width: '300px'}}
+                                    style={{width: '300px', color: '#B02E0E'}}
                                     className="pl-2 text-4xl"
                                     type={"number"}
                                     min={0}

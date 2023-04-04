@@ -29,6 +29,7 @@ export const InputField = ({
 
     const handleUpdateForm = (e: ChangeEvent<HTMLInputElement>) => {
         updateForm(propertyNameOfObjToSet, e.target.value);
+
     }
 
     return (

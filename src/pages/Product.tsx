@@ -83,7 +83,7 @@ export const Product = () => {
     }, []);
 
     return (
-        <>{console.log(newProductFromForm)}
+        <>
             <div className="mt-20 md:pr-10 md:pl-10 pr-3 pl-3">
                 <Header category={'page'} title={'Product'}/>
 
@@ -95,7 +95,7 @@ export const Product = () => {
                 </div>
             </div>
 
-            <div className="md:pr-10 md:pl-10 pr-3 pl-3">
+            <div className="md:pr-10 md:pl-10 pr-3 pl-3 pb-10">
                 <div className="w-3/5 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
                     <InputFormProduct updateForm={updateForm} saveShopToDb={saveShopToDb}
                                       categoriesFromDb={categoriesFromDb}/>
