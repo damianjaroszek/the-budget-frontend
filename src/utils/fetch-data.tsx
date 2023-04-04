@@ -1,7 +1,7 @@
 type Obj = {
     method: "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS",
     body?: string,
-    headers?: { 'Content-Type': 'application/json' },
+    headers?: { 'Content-Type': 'application/json' | 'text/html' },
 }
 
 export const fetchData = async (hostAddress: string, url: string, id = '', obj?: Obj) => {
