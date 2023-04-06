@@ -128,7 +128,7 @@ export const Budget = () => {
                                         maxLength={10}
                                         size={10}
                                         max={999999999.99}
-                                        value={getBudget.budget/*.toFixed(2)*/}
+                                        value={getBudget.budget.toFixed(2)}
                                         step={0.01}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => setGetBudget(getBudget => ({
                                             ...getBudget,
@@ -153,7 +153,7 @@ export const Budget = () => {
                                     className="pl-2 text-4xl"
                                     type={"number"}
                                     min={0}
-                                    value={(getBudget.expense)/*.toFixed(2)*/}
+                                    value={(getBudget.expense).toFixed(2)}
                                     step={0.1}
                                     disabled={true}
                                 >
