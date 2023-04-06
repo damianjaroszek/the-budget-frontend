@@ -4,7 +4,7 @@ import {Pie} from "../components/Charts/Pie";
 import {Button} from "../components/Button";
 import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
-import {BudgetEntity} from 'types';
+import {BudgetEntity, StatsFromBudget} from 'types';
 import {getKeyOfObject} from "../utils/get-key-of-object";
 
 
@@ -19,7 +19,7 @@ const currentDate = new Date().toLocaleString('en-us', {month: 'long', year: 'nu
 
 export const Budget = () => {
     const [getBudget, setGetBudget] = useState<BudgetEntity>(budgetInitialValue);
-    const [stats, setStats] = useState<any[] | null>(null);
+    const [stats, setStats] = useState<StatsFromBudget[] | null>(null);
     const [isDataSet, setIsDataSet] = useState<boolean>(false);
     const [statementUpdateBudget, setStatementUpdateBudget] = useState<boolean>(false)
 
@@ -104,10 +104,26 @@ export const Budget = () => {
         }
         return acc;
     }, []);
+
+    // const prepareDataPieChart = (statsObj: ) => {
+    // const arr: any[] = [];
+    // stats && [...stats].map(stat => arr.push(stat.categoryName) && arr.push(stat.expenseSum));
+    //
+    // const size: number = 2;
+    // const dataForPie: [string, number][] = arr?.reduce((acc, curr: string | number, i: number) => {
+    //     if (!(i % size)) {    // if index is 0 or can be divided by the `size`...
+    //         acc.push(arr?.slice(i, i + size));   // ..push a chunk of the original array to the accumulator
+    //     }
+    //     return acc;
+    // }, []);
+    //
+    // return dataForPie;
+    // }
+
 //{stats && console.log(stats[0])}
 
     return (<>
-            {console.log(arr)}
+            {console.log(stats)}
             <div className="mt-24">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">
