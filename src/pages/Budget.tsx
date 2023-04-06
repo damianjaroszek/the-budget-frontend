@@ -6,6 +6,7 @@ import {fetchData} from "../utils/fetch-data";
 import {constHostAddress} from "../utils/global-const";
 import {BudgetEntity, StatsFromBudget} from 'types';
 import {getKeyOfObject} from "../utils/get-key-of-object";
+import {prepareDataPieChart} from "../utils/prepare-data-pie-chart";
 
 
 const budgetInitialValue = {
@@ -93,19 +94,7 @@ export const Budget = () => {
         }
     }, [getBudget]);
 
-
-    const arr: any[] = [];
-    stats && [...stats].map(stat => arr.push(stat.categoryName) && arr.push(stat.expenseSum));
-
-    const size: number = 2;
-    const dataForPie: [string, number][] = arr?.reduce((acc, curr: string | number, i: number) => {
-        if (!(i % size)) {    // if index is 0 or can be divided by the `size`...
-            acc.push(arr?.slice(i, i + size));   // ..push a chunk of the original array to the accumulator
-        }
-        return acc;
-    }, []);
-
-    // const prepareDataPieChart = (statsObj: ) => {
+    //
     // const arr: any[] = [];
     // stats && [...stats].map(stat => arr.push(stat.categoryName) && arr.push(stat.expenseSum));
     //
@@ -116,9 +105,9 @@ export const Budget = () => {
     //     }
     //     return acc;
     // }, []);
-    //
-    // return dataForPie;
-    // }
+
+
+    const dataForPie = prepareDataPieChart(stats);
 
 //{stats && console.log(stats[0])}
 
