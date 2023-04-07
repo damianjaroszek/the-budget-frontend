@@ -17,7 +17,7 @@ export const InputFormShop = ({updateForm, saveShopToDb}: Props) => {
 
 
                     <div className="pr-3 pb-3">
-                        <InputField fieldName="Add new shop" width={275} type="text" updateForm={updateForm}
+                        <InputField fieldName="Add new position" width={275} type="text" updateForm={updateForm}
                                     propertyNameOfObjToSet="name" required={true}/>
                     </div>
 
