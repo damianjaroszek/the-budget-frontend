@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "./store";
 import {Shop} from "./pages/Shop";
 import {Product} from "./pages/Product";
+import {Category} from "./pages/Category";
 
 
 export const App = () => {
@@ -52,10 +53,11 @@ export const App = () => {
                             {/* Show */}
                             <Route path="/history" element={<History/>}/>
 
-                            {/* Add */}
+                            {/* Manage */}
                             <Route path="/receipt" element={<Receipt/>}/>
                             <Route path="/shop" element={<Shop/>}/>
                             <Route path="/product" element={<Product/>}/>
+                            <Route path="/category" element={<Category/>}/>
                         </Routes>
                     </div>
                 </div>
