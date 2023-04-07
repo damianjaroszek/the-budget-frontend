@@ -19,6 +19,7 @@ import product6 from './product6.jpg';
 import product7 from './product7.jpg';
 import {TbReceipt2, TbZoomMoney} from "react-icons/tb";
 import {RiProductHuntFill} from "react-icons/ri";
+import {BiCategoryAlt} from "react-icons/bi";
 
 export const gridOrderImage = (props) => (
     <div>
@@ -554,6 +555,10 @@ export const links = [
       {
         name: 'product',
         icon: <RiProductHuntFill/>,
+      },
+      {
+        name: 'category',
+        icon: <BiCategoryAlt/>,
       },
       // {
       //   name: 'color-picker',
