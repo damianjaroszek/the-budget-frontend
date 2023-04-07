@@ -16,7 +16,7 @@ export const InputFormProduct = ({updateForm, saveShopToDb, categoriesFromDb}: P
     return (
         <>
             <form onSubmit={saveShopToDb}>
-                <div className="flex justify-start pt-3 pr-3">
+                <div className="flex flex-wrap justify-start pt-3 pr-3">
 
 
                     <div className="pr-5 pb-3">
