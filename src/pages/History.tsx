@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {OutputTable} from "../components/OutputTable";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {DeleteButton} from "../components/DeleteButton";
 import {RecipeEntityWithAction} from "./Receipt";
 import {InputDateForm} from "../components/InputDateForm";
@@ -34,13 +34,13 @@ export const History = () => {
 
     // removing recipe from db
     const removeRecipeFromDb = async (id: string) => {
-        await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
+        await fetchData(apiUrl, '/recipe', id, {method: 'DELETE'});
         setIsDataSet(prevState => !prevState);
     }
 
     // getting recipes from db by data range
     const getRecipesFromDbByDateRange = async (dateRange: DateRange) => {
-        const recipes = (await fetchData(constHostAddress, `/recipe/getDateRange/${(dateRange.firstDate).toISOString().slice(0, 10)}/${dateRange.secondDate.toISOString().slice(0, 10)}`) as RecipeEntityWithAction[]);
+        const recipes = (await fetchData(apiUrl, `/recipe/getDateRange/${(dateRange.firstDate).toISOString().slice(0, 10)}/${dateRange.secondDate.toISOString().slice(0, 10)}`) as RecipeEntityWithAction[]);
 
         recipes.map((obj: RecipeEntityWithAction) => {
             // inject to OutputTable component button to the column action for deleting position

@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {OutputTable} from "../components/OutputTable";
 import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {InputFormRecipe} from "../components/InputFormRecipe";
 import {fetchData} from "../utils/fetch-data";
 import {DeleteButton} from "../components/DeleteButton";
@@ -31,10 +31,9 @@ export const Receipt = () => {
 
     // removing recipe from db
     const removeRecipeFromDb = async (id: string) => {
-        const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
-        if (recipe[0].affectedRows === 1) {
-            setIsDataSet(true);
-        }
+        await fetchData(apiUrl, '/recipe', id, {method: 'DELETE'});
+        setIsDataSet(true);
+
     }
     // getting data from form - new recipe position - updating newRecipeFromForm state
     const updateForm = (key: string, value: string | number | Date | null) => {
@@ -47,7 +46,7 @@ export const Receipt = () => {
     const saveRecipeToDb = async (e: SyntheticEvent) => { /// insert new shop to db
         e.preventDefault();
 
-        const data = await fetchData(constHostAddress, '/recipe', '', {
+        const data = await fetchData(apiUrl, '/recipe', '', {
             method: 'POST',
             body: JSON.stringify(
                 newRecipeFromForm
@@ -65,7 +64,7 @@ export const Receipt = () => {
         setRecipesFromDb(null);
 
         const getRecipesFromDb = async () => {
-            const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
+            const recipes = await fetchData(apiUrl, '/recipe/listLatestWeek');
 
             // inject to OutputTable component button to the column action for deleting position
             recipes.map((obj: RecipeEntityWithAction) => {
@@ -85,7 +84,7 @@ export const Receipt = () => {
         setProductsFromDb(null);
 
         const getProductsFromDb = async () => {
-            const products = await fetchData(constHostAddress, '/product/listAll');
+            const products = await fetchData(apiUrl, '/product/listAll');
             setProductsFromDb(products);
         };
 
@@ -98,7 +97,7 @@ export const Receipt = () => {
         setShopsFromDb(null);
 
         const getShopsFromDb = async () => {
-            const shops = await fetchData(constHostAddress, '/shop/listAll');
+            const shops = await fetchData(apiUrl, '/shop/listAll');
             setShopsFromDb(shops);
         };
 

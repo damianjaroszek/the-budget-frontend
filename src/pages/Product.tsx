@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {CategoryEntity, NewShopEntity, ShopEntity} from 'types';
 import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {OutputList} from "../components/OutputList";
 import {InputFormProduct} from "../components/InputFormProduct";
 
@@ -25,7 +25,7 @@ export const Product = () => {
     const saveShopToDb = async (e: SyntheticEvent) => { // insert new shop to db
         e.preventDefault();
         if (!isNameExist()) {
-            await fetchData(constHostAddress, '/product', '', {
+            await fetchData(apiUrl, '/product', '', {
                 method: 'POST',
                 body: JSON.stringify(
                     newProductFromForm
@@ -55,14 +55,14 @@ export const Product = () => {
     };
 // removing product from db
     const removeShopFromDb = async (id: string) => {
-        await fetchData(constHostAddress, '/product', id, {method: 'DELETE'});
+        await fetchData(apiUrl, '/product', id, {method: 'DELETE'});
         setIsDataSet(prevState => !prevState);
     }
 // getting shops from db
     useEffect(() => {
         setProductsFromDb(null);
         const getShopsFromDb = async () => {
-            const products = await fetchData(constHostAddress, '/product/listAll');
+            const products = await fetchData(apiUrl, '/product/listAll');
             setProductsFromDb(products);
         }
         getShopsFromDb().catch(console.error);
@@ -74,7 +74,7 @@ export const Product = () => {
     useEffect(() => {
         setCategoriesFromDb(null);
         const getCategoriesFromDb = async () => {
-            const categories = await fetchData(constHostAddress, '/category/listAll');
+            const categories = await fetchData(apiUrl, '/category/listAll');
             setCategoriesFromDb(categories);
         }
         getCategoriesFromDb().catch(console.error);

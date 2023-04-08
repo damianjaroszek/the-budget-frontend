@@ -3,7 +3,7 @@ import {DiffBar} from "../components/Charts/DiffBar";
 import {Pie} from "../components/Charts/Pie";
 import {Button} from "../components/Button";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {BudgetEntity, StatsFromBudget} from 'types';
 import {getKeyOfObject} from "../utils/get-key-of-object";
 import {prepareDataPieChart} from "../utils/prepare-data-pie-chart";
@@ -36,7 +36,7 @@ export const Budget = () => {
     // update budget values after clicking "Update" button
     const updateBudgetToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const data = await fetchData(constHostAddress, '/budget', '', {
+        const data = await fetchData(apiUrl, '/budget', '', {
             method: 'PUT',
             body: JSON.stringify(
                 getBudget
@@ -59,7 +59,7 @@ export const Budget = () => {
     // getting budget and expense from db for diff chart
     useEffect(() => {
         const getBudgetFromDb = async () => {
-            const budget = await fetchData(constHostAddress, '/budget/showBudgetExpense');
+            const budget = await fetchData(apiUrl, '/budget/showBudgetExpense');
             setGetBudget(budget[0])
 
         }
@@ -71,7 +71,7 @@ export const Budget = () => {
     // getting statistic for pie chart
     useEffect(() => {
         const getStatsFromDb = async () => {
-            const stats = await fetchData(constHostAddress, '/budget/getStatsPerCategory');
+            const stats = await fetchData(apiUrl, '/budget/getStatsPerCategory');
             setStats(stats)
         }
         getStatsFromDb().catch(console.error);
