@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {OutputTable} from "../components/OutputTable";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-const";
+import {constHostAddress} from "../utils/global-host-address";
 import {DeleteButton} from "../components/DeleteButton";
 import {RecipeEntityWithAction} from "./Receipt";
 import {InputDateForm} from "../components/InputDateForm";

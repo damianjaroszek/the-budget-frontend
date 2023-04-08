@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {CategoryEntity, NewShopEntity, ShopEntity} from 'types';
 import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-const";
+import {constHostAddress} from "../utils/global-host-address";
 import {OutputList} from "../components/OutputList";
 import {InputFormProduct} from "../components/InputFormProduct";
 

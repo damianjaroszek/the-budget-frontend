@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {Header} from "../components/Header";
 import {OutputTable} from "../components/OutputTable";
 import {NewRecipe, ProductEntity, RecipeEntity, ShopEntity} from 'types';
-import {constHostAddress} from "../utils/global-const";
+import {constHostAddress} from "../utils/global-host-address";
 import {InputFormRecipe} from "../components/InputFormRecipe";
 import {fetchData} from "../utils/fetch-data";
 import {DeleteButton} from "../components/DeleteButton";

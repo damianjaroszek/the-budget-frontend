@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {CategoryEntity, NewCategoryEntity} from 'types';
 import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-const";
+import {constHostAddress} from "../utils/global-host-address";
 import {OutputList} from "../components/OutputList";
 import {InputFormShop} from "../components/InputFormShop";
 
@@ -24,7 +24,7 @@ export const Category = () => {
     const saveCategoryToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (!isCategoryExist()) {
-            const data = await fetchData(constHostAddress, '/category', '', {
+            await fetchData(constHostAddress, '/category', '', {
                 method: 'POST',
                 body: JSON.stringify(
                     newCategoryFromForm
@@ -51,8 +51,8 @@ export const Category = () => {
     };
 
     const removeCategoryFromDb = async (id: string) => {
-        const category = await fetchData(constHostAddress, '/category', id, {method: 'DELETE'}); //@todo zrobić endpoint do usuwania sklepu
-        //if (shop[0].affectedRows === 1) {
+        const category = await fetchData(constHostAddress, '/category', id, {method: 'DELETE'});
+        //if (category[0].affectedRows === 1) {
         setIsDataSet(prevState => !prevState);
         //}
     }

@@ -3,7 +3,7 @@ import {DiffBar} from "../components/Charts/DiffBar";
 import {Pie} from "../components/Charts/Pie";
 import {Button} from "../components/Button";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-const";
+import {constHostAddress} from "../utils/global-host-address";
 import {BudgetEntity, StatsFromBudget} from 'types';
 import {getKeyOfObject} from "../utils/get-key-of-object";
 import {prepareDataPieChart} from "../utils/prepare-data-pie-chart";
