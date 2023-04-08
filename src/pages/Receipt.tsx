@@ -11,6 +11,8 @@ export interface RecipeEntityWithAction extends RecipeEntity {
     action: JSX.Element;
 }
 
+// Receipt page
+
 export const Receipt = () => {
 
     const recipeInitValues = {
@@ -18,24 +20,23 @@ export const Receipt = () => {
         price: 0,
         productId: '',
         shopId: '',
-        //categoryName: '',
     }
 
 
-    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null);
-    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null);
-    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null);
-    const [isDataSet, setIsDataSet] = useState<boolean>(false);
-    const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>(recipeInitValues);
+    const [recipesFromDb, setRecipesFromDb] = useState<RecipeEntityWithAction[] | null>(null); // getting recipes from db
+    const [productsFromDb, setProductsFromDb] = useState<ProductEntity[] | null>(null); // getting products from db
+    const [shopsFromDb, setShopsFromDb] = useState<ShopEntity[] | null>(null); // getting shops from db
+    const [isDataSet, setIsDataSet] = useState<boolean>(false);  // checking if the data has changed (loaded from backend)
+    const [newRecipeFromForm, setNewRecipeFromForm] = useState<NewRecipe>(recipeInitValues); // getting recipe from form
 
-
+    // removing recipe from db
     const removeRecipeFromDb = async (id: string) => {
         const recipe = await fetchData(constHostAddress, '/recipe', id, {method: 'DELETE'});
         if (recipe[0].affectedRows === 1) {
             setIsDataSet(true);
         }
     }
-
+    // getting data from form - new recipe position - updating newRecipeFromForm state
     const updateForm = (key: string, value: string | number | Date | null) => {
         setNewRecipeFromForm(newRecipeFromForm => ({
             ...newRecipeFromForm,
@@ -43,10 +44,8 @@ export const Receipt = () => {
         }));
     };
 
-    const saveRecipeToDb = async (e: SyntheticEvent) => {
+    const saveRecipeToDb = async (e: SyntheticEvent) => { /// insert new shop to db
         e.preventDefault();
-        //setIsDataSet(prevState => !prevState); // false
-
 
         const data = await fetchData(constHostAddress, '/recipe', '', {
             method: 'POST',
@@ -58,16 +57,17 @@ export const Receipt = () => {
             },
         });
 
-        data.length === 36 && typeof data === 'string' ? setIsDataSet(true) : setIsDataSet(false);
+        data.length === 36 && typeof data === 'string' ? setIsDataSet(true) : setIsDataSet(false); // if response is uuid setIsDataSet = true
     }
 
-
+    // getting recipes from db - data from the latest week and showing it in table
     useEffect(() => {
         setRecipesFromDb(null);
 
         const getRecipesFromDb = async () => {
             const recipes = await fetchData(constHostAddress, '/recipe/listLatestWeek');
 
+            // inject to OutputTable component button to the column action for deleting position
             recipes.map((obj: RecipeEntityWithAction) => {
                 return obj.action = <DeleteButton id={obj.id} removeItem={removeRecipeFromDb}/>
             })
@@ -78,8 +78,9 @@ export const Receipt = () => {
             setIsDataSet(false);
         }
 
-    }, [isDataSet]); //isDataSet
+    }, [isDataSet]);
 
+    // getting products from db - listing it in autocomplete field
     useEffect(() => {
         setProductsFromDb(null);
 
@@ -90,8 +91,9 @@ export const Receipt = () => {
 
         getProductsFromDb().catch(console.error);
         setIsDataSet(true);
-    }, []); //isDataSet
+    }, []);
 
+    // getting shops from db - listing it in autocomplete field
     useEffect(() => {
         setShopsFromDb(null);
 

@@ -12,20 +12,20 @@ export const Product = () => {
         name: '',
         categoryId: '',
     }
-    const [productsFromDb, setProductsFromDb] = useState<ShopEntity[] | null>(null);
-    const [isDataSet, setIsDataSet] = useState<boolean>(false);
-    const [newProductFromForm, setNewProductFromForm] = useState<NewShopEntity>(shopInitValues);
-    const [nameExist, setNameExist] = useState<boolean>(false);
-    const [categoriesFromDb, setCategoriesFromDb] = useState<CategoryEntity[] | null>(null);
+    const [productsFromDb, setProductsFromDb] = useState<ShopEntity[] | null>(null); // getting products from db
+    const [isDataSet, setIsDataSet] = useState<boolean>(false); // checking if the data has changed (loaded from backend)
+    const [newProductFromForm, setNewProductFromForm] = useState<NewShopEntity>(shopInitValues); // getting product from form
+    const [nameExist, setNameExist] = useState<boolean>(false); // if given product name from form exist set value to true (for displaying statement if true - product is already exist)
+    const [categoriesFromDb, setCategoriesFromDb] = useState<CategoryEntity[] | null>(null); // getting categories from db
 
     const isNameExist = () => {
-        return productsFromDb?.map(shop => shop.name).includes(newProductFromForm.name);
+        return productsFromDb?.map(shop => shop.name).includes(newProductFromForm.name); // checking if the given name from form is already exist in database (preventing duplication products)
     };
 
-    const saveShopToDb = async (e: SyntheticEvent) => {
+    const saveShopToDb = async (e: SyntheticEvent) => { // insert new shop to db
         e.preventDefault();
         if (!isNameExist()) {
-            const data = await fetchData(constHostAddress, '/product', '', {
+            await fetchData(constHostAddress, '/product', '', {
                 method: 'POST',
                 body: JSON.stringify(
                     newProductFromForm
@@ -35,14 +35,15 @@ export const Product = () => {
                 },
             });
 
-            setIsDataSet(prevState => !prevState);
+            setIsDataSet(prevState => !prevState); // doing changes in state for communicate it to other useEffect (setProductsFromDb) - providing actual data
         } else {
-            setNameExist(true);
+            setNameExist(true); // if the negation of the isNameExist function returns true do fetch if return false setNameExist with true value
         }
 
-        setNewProductFromForm(shopInitValues);
+        setNewProductFromForm(shopInitValues); // set init values
     }
 
+    // getting data from form - new product name - updating newProductFromForm state
     const updateForm = (key: string, value: string) => {
         setNewProductFromForm(newShopFromForm => ({
             ...newShopFromForm,
@@ -52,14 +53,12 @@ export const Product = () => {
 
 
     };
-
+// removing product from db
     const removeShopFromDb = async (id: string) => {
-        const product = await fetchData(constHostAddress, '/product', id, {method: 'DELETE'});
-        //if (product[0].affectedRows === 1) {
+        await fetchData(constHostAddress, '/product', id, {method: 'DELETE'});
         setIsDataSet(prevState => !prevState);
-        //}
     }
-
+// getting shops from db
     useEffect(() => {
         setProductsFromDb(null);
         const getShopsFromDb = async () => {
@@ -71,6 +70,7 @@ export const Product = () => {
 
     }, [isDataSet]);
 
+    //  getting categories from db
     useEffect(() => {
         setCategoriesFromDb(null);
         const getCategoriesFromDb = async () => {

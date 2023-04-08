@@ -7,44 +7,44 @@ import {BiCategoryAlt} from "react-icons/bi";
 
 
 export const links = [
-  {
-    title: 'Dashboard',
-    links: [
-      {
-        name: 'budget',
-        icon: <TbZoomMoney/>,
-      },
-    ],
-  },
+    {
+        title: 'Dashboard',
+        links: [
+            {
+                name: 'budget',
+                icon: <TbZoomMoney/>,
+            },
+        ],
+    },
 
-  {
-    title: 'Show',
-    links: [
-      {
-        name: 'history',
-        icon: <AiOutlineShoppingCart/>,
-      },
-    ],
-  },
-  {
-    title: 'Manage',
-    links: [
-      {
-        name: 'receipt',
-        icon: <TbReceipt2/>,
-      },
-      {
-        name: 'shop',
-        icon: <BsShop/>,
-      },
-      {
-        name: 'product',
-        icon: <RiProductHuntFill/>,
-      },
-      {
-        name: 'category',
-        icon: <BiCategoryAlt/>,
-      },
-    ],
-  },
+    {
+        title: 'Show',
+        links: [
+            {
+                name: 'history',
+                icon: <AiOutlineShoppingCart/>,
+            },
+        ],
+    },
+    {
+        title: 'Manage',
+        links: [
+            {
+                name: 'receipt',
+                icon: <TbReceipt2/>,
+            },
+            {
+                name: 'shop',
+                icon: <BsShop/>,
+            },
+            {
+                name: 'product',
+                icon: <RiProductHuntFill/>,
+            },
+            {
+                name: 'category',
+                icon: <BiCategoryAlt/>,
+            },
+        ],
+    },
 ];

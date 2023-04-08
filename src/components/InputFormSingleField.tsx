@@ -6,13 +6,13 @@ import {Button as ButtonComponent} from "./Button";
 interface Props {
 
     updateForm: (key: string, value: string) => void;
-    saveShopToDb: (e: SyntheticEvent) => Promise<void>;
+    saveToDb: (e: SyntheticEvent) => Promise<void>;
 }
 
-export const InputFormShop = ({updateForm, saveShopToDb}: Props) => {
+export const InputFormSingleField = ({updateForm, saveToDb}: Props) => {
     return (
         <>
-            <form onSubmit={saveShopToDb}>
+            <form onSubmit={saveToDb}>
                 <div className="flex justify-start pt-5 pr-3">
 
 

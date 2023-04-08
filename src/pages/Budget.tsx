@@ -15,28 +15,25 @@ const budgetInitialValue = {
 }
 
 
-const currentDate = new Date().toLocaleString('en-us', {month: 'long', year: 'numeric'})
+const currentDate = new Date().toLocaleString('en-us', {month: 'long', year: 'numeric'}) // getting current date
 
+// Budget page
 
 export const Budget = () => {
-    const [getBudget, setGetBudget] = useState<BudgetEntity>(budgetInitialValue);
-    const [stats, setStats] = useState<StatsFromBudget[] | null>(null);
-    const [isDataSet, setIsDataSet] = useState<boolean>(false);
-    const [statementUpdateBudget, setStatementUpdateBudget] = useState<boolean>(false)
+    const [getBudget, setGetBudget] = useState<BudgetEntity>(budgetInitialValue); // getting budget and expense data from db
+    const [stats, setStats] = useState<StatsFromBudget[] | null>(null); // getting statistic data from db - array of objects -
+    // [{categoryName: 'Chemistry', expenseSum: 20}, {categoryName: 'Food', expenseSum: 39}, {categoryName: 'Transport', expenseSum: 229}]
+
+
+    const [isDataSet, setIsDataSet] = useState<boolean>(false); // checking if the data has changed (loaded from backend)
+    const [statementUpdateBudget, setStatementUpdateBudget] = useState<boolean>(false) // if statementUpdateBudget is true show "Saved" statement
 
     const legendLabelsForDiffBar = getKeyOfObject(getBudget); // ["Budget", "Expense"];
-    const compareTwoValuesForDiffBar = [getBudget.budget, getBudget.expense];
+    const compareTwoValuesForDiffBar = [getBudget.budget, getBudget.expense]; // values to compare in Diff Chart
 
-    const legendLabelsForPie = ["Expense per category in percentage"];
-    // const dataForPie: [string, number][] = [
-    //     ["Food", 30],
-    //     ["Transport", 10],
-    //     ["Commute", 14],
-    //     ["Watch TV", 11],
-    //     ["Sleep", 30],
-    // ];
+    const legendLabelsForPie = ["Expense per category in percentage"]; // description of Pie Chart
 
-
+    // update budget values after clicking "Update" button
     const updateBudgetToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
         const data = await fetchData(constHostAddress, '/budget', '', {
@@ -50,17 +47,17 @@ export const Budget = () => {
         });
 
         if (data === 1) {
-            setStatementUpdateBudget(true);
+            setStatementUpdateBudget(true); // when backend response is OK set statementUpdateBudget for true to showing "saved" statement
         }
 
-        setIsDataSet(prevState => !prevState);
+        setIsDataSet(prevState => !prevState); // doing changes in state for communicate it to other useEffect (setShopsFromDb) - providing actual data
 
 
-        setGetBudget(budgetInitialValue);
+        setGetBudget(budgetInitialValue); // cleaning getBudget
     }
 
+    // getting budget and expense from db for diff chart
     useEffect(() => {
-        //setGetBudget(budgetInitialValue);
         const getBudgetFromDb = async () => {
             const budget = await fetchData(constHostAddress, '/budget/showBudgetExpense');
             setGetBudget(budget[0])
@@ -69,10 +66,10 @@ export const Budget = () => {
         getBudgetFromDb().catch(console.error);
         setIsDataSet(true);
 
-    }, [isDataSet]);//isDataSet
+    }, [isDataSet]); // it does this every time isDataSet changes
 
+    // getting statistic for pie chart
     useEffect(() => {
-        //setGetBudget(budgetInitialValue);
         const getStatsFromDb = async () => {
             const stats = await fetchData(constHostAddress, '/budget/getStatsPerCategory');
             setStats(stats)
@@ -80,13 +77,13 @@ export const Budget = () => {
         getStatsFromDb().catch(console.error);
         setIsDataSet(true);
 
-    }, []);//isDataSet
+    }, []);
 
 
+    // show statement saved per 3 seconds
     useEffect(() => {
         const timeId = setTimeout(() => {
-            // After 3 seconds set the show value to false
-            setStatementUpdateBudget(false)
+            setStatementUpdateBudget(false) // After 3 seconds set the statementUpdateBudget value to false
         }, 3000)
 
         return () => {
@@ -94,25 +91,14 @@ export const Budget = () => {
         }
     }, [getBudget]);
 
-    //
-    // const arr: any[] = [];
-    // stats && [...stats].map(stat => arr.push(stat.categoryName) && arr.push(stat.expenseSum));
-    //
-    // const size: number = 2;
-    // const dataForPie: [string, number][] = arr?.reduce((acc, curr: string | number, i: number) => {
-    //     if (!(i % size)) {    // if index is 0 or can be divided by the `size`...
-    //         acc.push(arr?.slice(i, i + size));   // ..push a chunk of the original array to the accumulator
-    //     }
-    //     return acc;
-    // }, []);
 
-
+// prepared data from array of objects
+// [{categoryName: 'Chemistry', expenseSum: 20}, {categoryName: 'Food', expenseSum: 39},{categoryName: 'Transport', expenseSum: 229}]
+// to array of arrays [['Chemistry', 20], ['Food', 39], ['Transport', 229]] is required format of data for pie chart
     const dataForPie = prepareDataPieChart(stats);
 
-//{stats && console.log(stats[0])}
 
     return (<>
-            {console.log(stats)}
             <div className="mt-24">
                 <div className="flex flex-wrap justify-center">
                     <div className="w-400 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6 m-3">

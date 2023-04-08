@@ -1,3 +1,4 @@
+// the store of Redux-Toolkit for setActiveMenu, setScreenSize
 import {configureStore} from "@reduxjs/toolkit";
 import {FrontendComponentsStateSlice} from "../features/frontend-state-slice";
 

@@ -1,3 +1,5 @@
+// external function for fetching
+
 type Obj = {
     method: "GET" | "POST" | "PUT" | "HEAD" | "DELETE" | "PATCH" | "OPTIONS",
     body?: string,
@@ -12,9 +14,9 @@ export const fetchData = async (hostAddress: string, url: string, id = '', obj?:
             const message = `Something wrong.`;
             throw new Error(message);
         }
-        const data = await res.json();
+        return await res.json();
 
-        return data;
+
     } catch (error) {
         return error;
     }

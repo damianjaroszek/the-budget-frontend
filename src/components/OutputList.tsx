@@ -12,17 +12,11 @@ interface Props {
 export const OutputList = ({data, sortParameter, removeItem}: Props) => {
 
     return (<>
-            {/*{console.log({data})}*/}
             <ul className="w-full divide-y divide-gray-200 dark:divide-gray-700">
                 {
                     [...data]
                         .sort((a, b) => a[sortParameter].localeCompare(b[sortParameter]))
                         .map(dataObj =>
-                            // <SingleItem
-                            //     user={userObj}
-                            //     key={userObj.username}
-                            //     onRemoveItem={removeItem}
-                            // />
                             <OutputListItem key={dataObj.id} name={dataObj[sortParameter]} id={dataObj.id}
                                             additionalInfo={dataObj.categoryName}
                                             isDeletable={dataObj.isDeletable} removeItem={removeItem}/>

@@ -11,17 +11,6 @@ interface Props {
     data: [string, number][];
 }
 
-// example final structure data input to chart:
-// const data = [
-//     ["", "Title"],
-//     ["Food", 30],
-//     ["Transport", 10],
-//     ["Commute", 14],
-//     ["Watch TV", 11],
-//     ["Sleep", 30],
-// ];
-
-
 export const Pie = ({title, pieHole, widthPercentage, heightPixels, legendPosition, data}: Props) => {
 
     return (

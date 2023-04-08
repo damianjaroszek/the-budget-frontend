@@ -14,12 +14,6 @@ import {Category} from "./pages/Category";
 
 
 export const App = () => {
-    // const foobar: TestInterface = {
-    //     x: 123,
-    // };
-    //const activeMenu = true;
-
-
     const {activeMenu} = useSelector((store: RootState) => store.frontendComponentsState);
 
     return (
