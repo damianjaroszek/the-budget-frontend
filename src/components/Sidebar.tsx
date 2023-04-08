@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {MdOutlineCancel} from "react-icons/md";
 import {TooltipComponent} from "@syncfusion/ej2-react-popups";
-import {links} from '../data/dummy';
+import {links} from '../data/navbar-links';
 import {GiReceiveMoney} from "react-icons/gi";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store";
