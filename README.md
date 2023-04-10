@@ -107,3 +107,7 @@ For build
 Need to improve:
 - RWD
 
+# Contact
+
+damianjaroszek90@gmail.com
+
