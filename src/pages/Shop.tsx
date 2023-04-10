@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {NewShopEntity, ShopEntity} from 'types';
 import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {OutputList} from "../components/OutputList";
 import {InputFormSingleField} from "../components/InputFormSingleField";
 
@@ -26,7 +26,7 @@ export const Shop = () => {
     const saveShopToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (!isNameExist()) {
-            await fetchData(constHostAddress, '/shop', '', {
+            await fetchData(apiUrl, '/shop', '', {
                 method: 'POST',
                 body: JSON.stringify(
                     newShopFromForm
@@ -54,7 +54,7 @@ export const Shop = () => {
 
     // removing shop from db
     const removeShopFromDb = async (id: string) => {
-        await fetchData(constHostAddress, '/shop', id, {method: 'DELETE'});
+        await fetchData(apiUrl, '/shop', id, {method: 'DELETE'});
         setIsDataSet(prevState => !prevState); // doing changes in state for communicate it to other useEffect (setShopsFromDb) - providing actual data
     }
 
@@ -62,7 +62,7 @@ export const Shop = () => {
     useEffect(() => {
         setShopsFromDb(null);
         const getShopsFromDb = async () => {
-            const shops = await fetchData(constHostAddress, '/shop/listAll');
+            const shops = await fetchData(apiUrl, '/shop/listAll');
             setShopsFromDb(shops);
         }
         getShopsFromDb().catch(console.error);

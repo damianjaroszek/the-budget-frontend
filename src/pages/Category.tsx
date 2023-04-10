@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useEffect, useState} from 'react';
 import {CategoryEntity, NewCategoryEntity} from 'types';
 import {Header} from "../components/Header";
 import {fetchData} from "../utils/fetch-data";
-import {constHostAddress} from "../utils/global-host-address";
+import {apiUrl} from "../config/api";
 import {OutputList} from "../components/OutputList";
 import {InputFormSingleField} from "../components/InputFormSingleField";
 
@@ -25,7 +25,7 @@ export const Category = () => {
     const saveCategoryToDb = async (e: SyntheticEvent) => {
         e.preventDefault();
         if (!isCategoryExist()) {
-            await fetchData(constHostAddress, '/category', '', {
+            await fetchData(apiUrl, '/category', '', {
                 method: 'POST',
                 body: JSON.stringify(
                     newCategoryFromForm
@@ -53,7 +53,7 @@ export const Category = () => {
 
     // removing category from db
     const removeCategoryFromDb = async (id: string) => {
-        await fetchData(constHostAddress, '/category', id, {method: 'DELETE'});
+        await fetchData(apiUrl, '/category', id, {method: 'DELETE'});
         setIsDataSet(prevState => !prevState);
     }
 
@@ -61,7 +61,7 @@ export const Category = () => {
     useEffect(() => {
         setCategoriesFromDb(null);
         const getCategoriesFromDb = async () => {
-            const categories = await fetchData(constHostAddress, '/category/listAll');
+            const categories = await fetchData(apiUrl, '/category/listAll');
             setCategoriesFromDb(categories);
         }
         getCategoriesFromDb().catch(console.error);
@@ -70,7 +70,7 @@ export const Category = () => {
     }, [isDataSet]); // it does this every time isDataSet changes
 
     return (
-        <>{console.log(newCategoryFromForm)}
+        <>
             <div className="mt-20 md:pr-10 md:pl-10 pr-3 pl-3">
                 <Header category={'page'} title={'Category'}/>
 
