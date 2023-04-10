@@ -9,8 +9,14 @@ For several years I have been writing down my daily expenses in Excel. My inspir
 
 
 ## Repositiories
-https://github.com/damianjaroszek/the-budget-frontend
-https://github.com/damianjaroszek/the-budget-back
+```bash
+  [https://github.com/damianjaroszek/the-budget-frontend.git](https://github.com/damianjaroszek/the-budget-frontend)
+```
+```bash
+  [https://github.com/damianjaroszek/the-budget-frontend.git]([https://github.com/damianjaroszek/the-budget-frontend](https://github.com/damianjaroszek/the-budget-back))
+```
+
+
 ## Video
 [![IMAGE ALT THE BUDGET APP](https://i.ibb.co/ckKcJn0/the-budget-screen.jpg)](https://www.youtube.com/watch?v=vQRq8U8V5xg&ab_channel=DamianJaroszek)
 ## Screenshots
