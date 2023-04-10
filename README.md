@@ -9,12 +9,8 @@ For several years I have been writing down my daily expenses in Excel. My inspir
 
 
 ## Repositiories
-```bash
-  (https://github.com/damianjaroszek/the-budget-frontend)
-```
-```bash
-  ([https://github.com/damianjaroszek/the-budget-frontend](https://github.com/damianjaroszek/the-budget-back))
-```
+  https://github.com/damianjaroszek/the-budget-frontend </br>
+  https://github.com/damianjaroszek/the-budget-back
 
 
 ## Video
