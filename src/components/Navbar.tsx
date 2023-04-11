@@ -13,8 +13,8 @@ export const Navbar = () => {
     const showRightMarginOfNavbar = "flex justify-between p-2 md:ml-6 md:mr-6 relative md:pr-72";
     const hideRightMarginOfNavbar = "flex justify-between p-2 md:ml-6 md:mr-6 relative md:pr-0";
 
-    const handleActiveChange = () => {
-        dispatch(setActiveMenu(!activeMenu));
+    const handleActiveChange = (value: boolean) => {
+        dispatch(setActiveMenu(value));
     }
 
     useEffect(() => {
@@ -27,10 +27,11 @@ export const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        if (screenSize)
-            if (screenSize <= 900) {
-                handleActiveChange();
-            }
+        if (screenSize && screenSize <= 900) {
+            handleActiveChange(false);
+        } else {
+            handleActiveChange(true);
+        }
     }, [screenSize]);
 
     interface NavbarButtonInterface {
@@ -64,7 +65,9 @@ export const Navbar = () => {
         <div className={activeMenu ? showRightMarginOfNavbar : hideRightMarginOfNavbar}>
             <NavbarButton
                 title="Menu"
-                func={handleActiveChange}
+                func={() => {
+                    handleActiveChange(true)
+                }}
                 icon=<AiOutlineMenu/>
                 color="blue"
             />

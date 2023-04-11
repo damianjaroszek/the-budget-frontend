@@ -13,18 +13,17 @@ export const Sidebar = () => {
     const {activeMenu, screenSize} = useSelector((store: RootState) => store.frontendComponentsState);
 
     const handleActiveChange = () => {
-        dispatch(setActiveMenu(!activeMenu));
+        if (activeMenu && screenSize && screenSize <= 900) {
+            dispatch(setActiveMenu(false));
+        } else {
+            dispatch(setActiveMenu(true));
+        }
     }
 
     const handleCloseSideBar = () => {
-
-        if (screenSize) {
-            if (activeMenu && screenSize <= 900) {
-                setActiveMenu(false);
-                console.log(activeMenu, screenSize)
-            }
-        }
+        setActiveMenu(true);
     }
+
 
     const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-gray-900 text-md m-2 font-bold';
     const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
@@ -54,7 +53,7 @@ export const Sidebar = () => {
                                     <NavLink
                                         to={`/${link.name}`}
                                         key={link.name}
-                                        onClick={handleCloseSideBar}
+                                        onClick={handleActiveChange}
                                         className={({isActive}) =>
                                             isActive ? activeLink : normalLink
                                         }
