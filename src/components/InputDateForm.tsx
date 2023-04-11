@@ -18,7 +18,7 @@ export const InputDateForm = ({
                 <div className="pb-3">
                     <span className="text-gray-400">Select a date range:</span>
                 </div>
-                <div className="flex justify-start">
+                <div className="flex flex-wrap justify-start">
                     <label>
                         <DatePickerInput updateForm={updateForm} propertyNameOfObjToSet="firstDate"/>
                     </label>

@@ -19,9 +19,8 @@ export const Sidebar = () => {
     const handleCloseSideBar = () => {
 
         if (screenSize) {
-            if (activeMenu && screenSize <= 900) {
+            if (activeMenu && screenSize >= 900) {
                 setActiveMenu(false);
-                console.log(activeMenu, screenSize)
             }
         }
     }

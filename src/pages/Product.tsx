@@ -88,7 +88,7 @@ export const Product = () => {
                 <Header category={'page'} title={'Product'}/>
 
                 <div className="mt-1 mb-10 ">
-                    <div className="w-3/5 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
+                    <div className="w-96 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
                         {productsFromDb &&
                             <OutputList data={productsFromDb} sortParameter={'name'} removeItem={removeShopFromDb}/>}
                     </div>
@@ -96,7 +96,7 @@ export const Product = () => {
             </div>
 
             <div className="md:pr-10 md:pl-10 pr-3 pl-3 pb-10">
-                <div className="w-3/5 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
+                <div className="w-96 bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl p-6">
                     <InputFormProduct updateForm={updateForm} saveShopToDb={saveShopToDb}
                                       categoriesFromDb={categoriesFromDb}/>
                     {nameExist && <p className="text-rose-600">The product is already exist in database.</p>}

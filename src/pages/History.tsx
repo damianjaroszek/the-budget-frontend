@@ -71,7 +71,7 @@ export const History = () => {
     return (<>
             <div className="mt-20 md:pr-10 md:pl-10 pr-3 pl-3">
                 <Header category={"page"} title={"History"}/>
-                <div className="mt-1 mb-10 ">
+                <div className="flex mt-1 mb-10 ">
                     <InputDateForm updateForm={updateForm} getRecipesFromDb={getRecipesFromDb}/>
                 </div>
                 <div className="mt-1 ">
